@@ -1,8 +1,8 @@
-import HomePage from "./Components/HomePage";
+import LandingPage from "./Components/LandingPage";
 function App() {
   return (
     <>
-      <HomePage />
+      <LandingPage />
     </>
   );
 }

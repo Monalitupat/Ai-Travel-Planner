@@ -34,28 +34,19 @@
 }
 /* Landing Page Description*/
 .content1 {
-  margin-top: 75px;
+  margin-top: 120px;
+  font-family: "lexend";
   font-weight: bold;
-  font-size: 38px;
-  margin-left: 500px;
+  font-size: 35px;
+  text-align: center;
+  /* margin-left: 400px; */
 }
 .p2 {
   margin-top: -40px;
-  margin-left: -20px;
+  /* margin-left: -20px; */
 }
 /*Landing Page button*/
-.b1 {
-  height: 40px;
-  width: 225px;
-  font-size: 20px;
-  margin-left: 670px;
-  font-weight: bold;
-  background-color: black;
-  color: white;
 
-  border-radius: 6px;
-  border: none;
-}
 /*Navbar Login & SignUp*/
 .navbar-nav {
   margin-left: 1250px;
@@ -66,3 +57,5 @@
   height: 50px;
   background-color: rgb(199, 199, 199);
 }
+
+/* sign Up Page Styling */
