@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import "../App.css";
-import img from "../assets/images/landingpage image.jpg";
-import "../assets/bootstrap-5.3.3-dist/css/bootstrap.min.css";
+import img from "../assets/images/cover-img.png";
 function LandingPage() {
   return (
     <>
@@ -13,10 +12,14 @@ function LandingPage() {
           </div>
           <div>
             <Link to={"/signup"}>
-              <button className="btn btn-dark px-3 py-2 me-3">Sign in</button>
+              <button className="btn btn-dark fw-bold px-3 py-1 me-3">
+                Sign in
+              </button>
             </Link>
             <Link to={"/login"}>
-              <button className="btn btn-dark px-3 py-2">Login in</button>
+              <button className="btn btn-dark fw-bold px-3 py-1">
+                Login in
+              </button>
             </Link>
           </div>
         </div>
@@ -27,32 +30,36 @@ function LandingPage() {
           Effortless & Personalized Travel at Your Fingertips
         </p>
       </div>
-      <div
-        style={{
-          fontFamily: "Lora, sans-serif",
-          fontSize: "20px",
-          textAlign: "center",
-        }}
-      >
+      <div className="Lsub-heading">
         Adventure awaits, and planning should be the easiest part! Let’s map out
         your dream journey together.
       </div>
       <div>
-        <Link to={"/signup"}>
+        <Link to={"/login"}>
           <button
             type="button"
-            className="btn btn-dark btn-lg fs-5"
+            className="btn btn-dark btn-lg fw-bold fs-5 "
             style={{ marginLeft: "640px", marginTop: "20px" }}
           >
             Get Started, It's Free
           </button>
         </Link>
       </div>
-      <div className="">
+      <div
+        className=""
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
         <img
           src={img}
           alt="image"
-          style={{ height: "290px", marginLeft: "530px", marginTop: "20px" }}
+          // style={{ height: "290px", marginLeft: "530px", marginTop: "20px" }}
+          style={{
+            position: "absolute",
+            bottom: 0,
+          }}
         />
       </div>
     </>

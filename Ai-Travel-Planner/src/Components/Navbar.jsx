@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import "../App.css";
-import "../assets/bootstrap-5.3.3-dist/css/bootstrap.min.css";
 import icon from "../assets/images/Profile icon.svg";
 export default function Navbar() {
   return (
@@ -13,37 +12,17 @@ export default function Navbar() {
           </div>
 
           <div className="d-flex pe-4">
-            <Link
-              to={"/home"}
-              className="nav-link active pe-4 mt-1"
-              style={{ fontSize: "18px" }}
-            >
+            <Link to={"/home"} className="nav-Link active pe-4 ">
               Home
             </Link>
-            <Link
-              to={"/createTrip"}
-              className="nav-link px-4 mt-1"
-              style={{ fontSize: "18px" }}
-            >
-              + Create Trips
+            <Link to={"/createTrip"} className="nav-Link px-4 ">
+              Create Trips
             </Link>
-            <Link
-              to={"/myTrip"}
-              className="nav-link px-4 mt-1"
-              style={{ fontSize: "18px" }}
-            >
+            <Link to={"/myTrip"} className="nav-Link px-4 ">
               My Trips
             </Link>
-            <Link
-              to={"/profile"}
-              className="nav-link px-4 "
-              style={{ fontSize: "18px" }}
-            >
-              <img
-                src={icon}
-                alt=""
-                style={{ width: "30px", height: "35px", marginBottom: "5px" }}
-              />
+            <Link to={"/profile"} className="nav-Link px-4 ">
+              <img src={icon} alt="" className="Picon" />
               Profile
             </Link>
           </div>

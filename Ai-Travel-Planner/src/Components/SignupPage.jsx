@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import "../App.css";
-import "../assets/bootstrap-5.3.3-dist/css/bootstrap.min.css";
 export default function SignupPage() {
   return (
     <>
@@ -13,24 +12,8 @@ export default function SignupPage() {
         </div>
       </nav>
       <div>
-        <h3
-          style={{
-            marginLeft: "635px",
-            marginTop: "100px",
-          }}
-        >
-          Sign Up Page
-        </h3>
-        <div
-          style={{
-            backgroundColor: "#d1d1d1",
-            width: "400px",
-            height: "500px",
-            marginLeft: "530px",
-            borderRadius: "20px",
-            marginTop: "20px",
-          }}
-        >
+        <h3 className="loginHeading">Sign Up Page</h3>
+        <div className="LoginBox">
           <form className="ms-5 py-4">
             <div className="mb-3 mt-4 ms-2">
               <label for="exampleInputEmail1" className="form-label">
@@ -38,8 +21,7 @@ export default function SignupPage() {
               </label>
               <input
                 type="email"
-                className="form-control"
-                style={{ width: "280px" }}
+                className="form-control input-field"
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
               />
@@ -50,8 +32,7 @@ export default function SignupPage() {
               </label>
               <input
                 type="email"
-                className="form-control"
-                style={{ width: "280px" }}
+                className="form-control input-field"
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
               />
@@ -62,42 +43,22 @@ export default function SignupPage() {
               </label>
               <input
                 type="password"
-                className="form-control"
-                style={{ width: "280px" }}
+                className="form-control input-field"
                 id="exampleInputPassword1"
               />
             </div>
             <Link to={"/login"}>
-              <button
-                type="submit"
-                className="btn btn-primary px-5"
-                style={{
-                  marginLeft: "10px",
-                  marginTop: "30px",
-                  width: "280px",
-                }}
-              >
+              <button type="submit" className="btn btn-dark px-5 mt-3 Loginbtn">
                 Sign Up
               </button>
             </Link>
             <Link to={"/login"}>
-              <p
-                style={{
-                  fontSize: "13px",
-                  fontWeight: "bold",
-                  textDecoration: "underline",
-                  marginLeft: "90px",
-                  marginTop: "20px",
-                }}
-              >
-                Login if already Exist
-              </p>
+              <p className="textbtn ps-4">Login if already Exist</p>
             </Link>
             <Link to={"/"}>
               <button
                 type="button"
-                className="btn btn-outline-dark px-3 py-1"
-                style={{ marginLeft: "120px" }}
+                className="btn btn-outline-dark px-3 py-1 back-btn"
               >
                 Back ›
               </button>

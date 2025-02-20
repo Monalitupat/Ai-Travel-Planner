@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
 import "../App.css";
-import "../assets/bootstrap-5.3.3-dist/css/bootstrap.min.css";
 
 export default function LoginPage() {
   return (
     <>
-      <nav className="navbar navbar-expand-lg fixed-top">
+      <nav className="navbar navbar-expand-lg fixed-top my-nav">
         <div className="container-fluid p-5">
           <div className="">
             <img src="/logo.svg" alt="." className="d-inline" />
@@ -14,24 +13,8 @@ export default function LoginPage() {
         </div>
       </nav>
       <div>
-        <h3
-          style={{
-            marginLeft: "635px",
-            marginTop: "100px",
-          }}
-        >
-          Login Page
-        </h3>
-        <div
-          style={{
-            backgroundColor: "#d1d1d1",
-            width: "400px",
-            height: "500px",
-            marginLeft: "530px",
-            borderRadius: "20px",
-            marginTop: "20px",
-          }}
-        >
+        <h3 className="loginHeading">Login Page</h3>
+        <div className="LoginBox">
           <form className="ms-5 py-4">
             <div className="mb-3 mt-4 ms-2 pt-4">
               <label for="exampleInputEmail1" className="form-label">
@@ -39,8 +22,7 @@ export default function LoginPage() {
               </label>
               <input
                 type="email"
-                className="form-control"
-                style={{ width: "280px" }}
+                className="form-control input-field"
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
               />
@@ -52,41 +34,22 @@ export default function LoginPage() {
               </label>
               <input
                 type="password"
-                className="form-control"
-                style={{ width: "280px" }}
+                className="form-control input-field"
                 id="exampleInputPassword1"
               />
             </div>
             <Link to={"/home"}>
-              <button
-                type="submit"
-                className="btn btn-primary px-5"
-                style={{
-                  marginLeft: "10px",
-                  marginTop: "40px",
-                  width: "280px",
-                }}
-              >
+              <button type="submit" className="btn btn-dark px-5 Loginbtn">
                 Login
               </button>
             </Link>
-            <p
-              style={{
-                fontSize: "13px",
-                fontWeight: "bold",
-                textDecoration: "underline",
-                marginLeft: "60px",
-                marginTop: "20px",
-              }}
-            >
-              Signup if you don't have Account
-            </p>
-
+            <Link to={"/signup"}>
+              <p className="textbtn">Signup if you don't have Account</p>
+            </Link>
             <Link to={"/"}>
               <button
                 type="button"
-                className="btn btn-outline-dark px-3 py-1 mt-3"
-                style={{ marginLeft: "120px" }}
+                className="btn btn-outline-dark px-3 py-1 mt-3 back-btn"
               >
                 Back ›
               </button>
