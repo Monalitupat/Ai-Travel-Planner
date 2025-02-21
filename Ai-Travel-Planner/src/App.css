@@ -1,9 +1,17 @@
+/* body styling */
+body {
+  /* background: linear-gradient(90deg, #00d2ff 0%, #3a47d5 100%); */
+  background: linear-gradient(90deg, #7cf5ff 0%, #6439ff 100%);
+}
+
 /* Navbar container */
 .navbar {
+  background: linear-gradient(90deg, #61caf4 0%, #8891f4 100%);
+  box-shadow: 2px 2px 5px rgb(104, 104, 104);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #d1d1d1; /* Light gray background */
+  /* background-color: #d1d1d1; Light gray background */
   padding: 10px 20px;
   height: 30px;
   font-weight: bold;
@@ -33,29 +41,26 @@
   text-decoration: underline;
 }
 /* Landing Page Description*/
+
 .content1 {
-  margin-top: 75px;
+  margin-top: 120px;
+  font-family: "lexend";
   font-weight: bold;
-  font-size: 38px;
-  margin-left: 500px;
+  font-size: 35px;
+  text-align: center;
+  /* margin-left: 400px; */
 }
 .p2 {
   margin-top: -40px;
-  margin-left: -20px;
+  /* margin-left: -20px; */
+}
+.Lsub-heading {
+  font-family: "Lora, sans-serif";
+  font-size: 20px;
+  text-align: center;
 }
 /*Landing Page button*/
-.b1 {
-  height: 40px;
-  width: 225px;
-  font-size: 20px;
-  margin-left: 670px;
-  font-weight: bold;
-  background-color: black;
-  color: white;
 
-  border-radius: 6px;
-  border: none;
-}
 /*Navbar Login & SignUp*/
 .navbar-nav {
   margin-left: 1250px;
@@ -65,4 +70,75 @@
 .navbar {
   height: 50px;
   background-color: rgb(199, 199, 199);
+}
+.nav-Link {
+  color: black;
+  text-decoration: none;
+}
+.nav-Link:hover {
+  text-decoration: underline;
+  font-size: large;
+}
+.picon {
+  width: 20px;
+  height: 20px;
+  margin-bottom: 5px;
+}
+
+/* Login Page Page Styling */
+.loginHeading {
+  margin-left: 635px;
+  margin-top: 100px;
+}
+.LoginBox {
+  background-color: #0a5eb0;
+  color: white;
+  width: 400px;
+  height: 500px;
+  margin-left: 530px;
+  border-radius: 20px;
+  margin-top: 20px;
+}
+.input-field {
+  width: 280px;
+}
+.Loginbtn {
+  width: 280px;
+  margin-left: 10px;
+  margin-top: 40px;
+  background-color: #001a6e;
+}
+.textbtn {
+  font-size: 13px;
+  font-weight: bold;
+  text-decoration: underline;
+  margin-left: 60px;
+  margin-top: 20px;
+  color: white;
+}
+.back-btn {
+  margin-left: 110px;
+  border: 3px solid black;
+  font-weight: bold;
+  color: white;
+}
+
+/* Home Page Styling */
+.carousel-img {
+  width: 1600px;
+  height: 500px;
+  margin-top: 50px;
+}
+
+/* Create Trip Styling */
+.createTrip-Heading {
+  margin-left: 160px;
+  margin-top: 150px;
+}
+.field {
+  margin-left: 160px;
+  margin-top: 50px;
+}
+.input {
+  margin-left: 160px;
 }
