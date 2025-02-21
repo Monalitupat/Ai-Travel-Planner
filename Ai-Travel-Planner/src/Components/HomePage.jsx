@@ -42,7 +42,6 @@ function HomePage() {
       <button type="button" className="b1">
         Get Started, It's Free
       </button>
-      <div className="container-fluid"></div>
     </>
   );
 }
