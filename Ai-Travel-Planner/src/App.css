@@ -132,6 +132,13 @@ body {
 
 /* Create Trip Styling */
 .createTrip-Heading {
-  margin-left: 200px;
+  margin-left: 160px;
   margin-top: 150px;
+}
+.field {
+  margin-left: 160px;
+  margin-top: 50px;
+}
+.input {
+  margin-left: 160px;
 }

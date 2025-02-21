@@ -1,6 +1,6 @@
 import "../App.css";
 import Navbar from "./Navbar";
-
+import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 export default function CreateTrip() {
   return (
     <>
@@ -14,10 +14,12 @@ export default function CreateTrip() {
           </p>
         </div>
         <div className="">
-          <h3>Your Destination</h3>
-          <GooglePlacesAutocomplete
-            apiKey={import.meta.env.VITE_GOOGLE_PLACE_API_KEY}
-          />
+          <h3 className="field">Your Destination</h3>
+          <div className="input">
+            <GooglePlacesAutocomplete
+              apiKey={import.meta.env.VITE_GOOGLE_PLACE_API_KEY}
+            />
+          </div>
         </div>
       </div>
     </>
