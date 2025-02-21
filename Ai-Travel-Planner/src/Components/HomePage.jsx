@@ -1,5 +1,5 @@
 import "../App.css";
-import img from "../assets/images/banner image 1.avif";
+import img from "../assets/images/p4.avif";
 import Navbar from "./Navbar";
 
 export default function HomePage() {
