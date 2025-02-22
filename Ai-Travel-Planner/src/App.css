@@ -131,14 +131,26 @@ body {
 }
 
 /* Create Trip Styling */
+
 .createTrip-Heading {
-  margin-left: 160px;
-  margin-top: 150px;
+  margin-left: 50px;
+  margin-top: 130px;
 }
 .field {
-  margin-left: 160px;
+  margin-left: 50px;
   margin-top: 50px;
 }
 .input {
-  margin-left: 160px;
+  margin-left: 50px;
+}
+.card-div {
+  margin-left: 50px;
+  display: flex;
+  justify-content: space-between;
+}
+.budget-card {
+  border: 3px solid #001a6e;
+  border-radius: 10px;
+  width: 380px;
+  height: 160px;
 }
