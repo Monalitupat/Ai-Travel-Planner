@@ -9,6 +9,8 @@ import MyTrip from "./Components/MyTrip.jsx";
 import Profile from "./Components/Profile.jsx";
 import LoginPage from "./Components/LoginPage.jsx";
 import SignupPage from "./Components/SignupPage.jsx";
+import PreviewTrip from "./Components/PreviewTrip.jsx";
+import BuildTrip from "./Components/BuildTrip.jsx";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +40,14 @@ const router = createBrowserRouter([
   {
     path: "/profile",
     element: <Profile />,
+  },
+  {
+    path: "/preview",
+    element: <PreviewTrip />,
+  },
+  {
+    path: "/buildtrip",
+    element: <BuildTrip />,
   },
 ]);
 

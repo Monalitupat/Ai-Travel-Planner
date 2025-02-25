@@ -89,6 +89,7 @@ body {
 .loginHeading {
   margin-left: 635px;
   margin-top: 100px;
+  font-weight: bold;
 }
 .LoginBox {
   background-color: #0a5eb0;
@@ -138,10 +139,18 @@ body {
 }
 .field {
   margin-left: 50px;
-  margin-top: 50px;
+  margin-top: 70px;
+  font-size: 25px;
 }
 .input {
   margin-left: 50px;
+}
+.input-field1 {
+  width: 1220px;
+  height: 40px;
+  border-radius: 5px;
+  border: none;
+  padding: 10px;
 }
 .card-div {
   margin-left: 50px;
@@ -153,4 +162,62 @@ body {
   border-radius: 10px;
   width: 380px;
   height: 160px;
+  padding: 20px;
+  box-shadow: 1px 2px;
+}
+.budget-icons {
+  width: 100px;
+  height: 100px;
+}
+.card-heading {
+  margin-top: -85px;
+  font-weight: bold;
+  font-size: 20px;
+  margin-left: 120px;
+}
+.card-subheading {
+  font-size: 18px;
+  margin-left: 120px;
+}
+.btn-div {
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-between;
+}
+.preview-btn {
+  margin-left: 1050px;
+}
+
+/* Preview Page Styling */
+.preview-subheading {
+  margin-left: 540px;
+  font-size: 18px;
+}
+.PreviewBox {
+  background-color: #0a5eb0;
+  color: white;
+  width: 480px;
+  height: 550px;
+  margin-left: 529px;
+  border-radius: 20px;
+  margin-top: 20px;
+}
+.preview-icon1 {
+  width: 60px;
+  height: 60px;
+  margin-top: 50px;
+  margin-left: 70px;
+}
+.preview-icon {
+  width: 60px;
+  height: 60px;
+  margin-top: 10px;
+  margin-left: 70px;
+}
+.preview-description {
+  margin-top: -5px;
+}
+.preview-buttons {
+  margin-top: 35px;
+  margin-left: 90px;
 }
