@@ -221,3 +221,34 @@ body {
   margin-top: 35px;
   margin-left: 90px;
 }
+/* build Trip Styling */
+.banner-img {
+  width: 1400px;
+  height: 500px;
+  margin-top: 60px;
+  margin-left: 60px;
+}
+.buildtrip-background {
+  background: linear-gradient(90deg, #53a5ac 0%, #6942f6 100%);
+}
+.buildtravel-contents {
+  margin-top: 20px;
+  margin-left: 60px;
+}
+
+.destination-detail {
+  width: 150px;
+  height: 40px;
+  background-color: #013e5e;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 2px 1px #025d8e;
+}
+.date-detail {
+  width: 300px;
+  height: 40px;
+  background-color: #013e5e;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 2px 1px #025d8e;
+}
