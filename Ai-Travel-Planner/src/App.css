@@ -158,13 +158,24 @@ body {
   justify-content: space-between;
 }
 .budget-card {
-  border: 3px solid #001a6e;
   border-radius: 10px;
   width: 380px;
   height: 160px;
   padding: 20px;
-  box-shadow: 1px 2px;
+  box-shadow: 1px 1px 2px 2px;
+  border: 2px solid transparent;
+  padding: 10px;
+  transition: all 0.3s ease;
 }
+.budget-card:hover {
+  transform: scale(1.03); /* Slight zoom effect */
+}
+
+.budget-card.selected {
+  box-shadow: 2px 2px 3px 3px #001a6e;
+  transform: scale(1.09); /* Slight zoom effect */
+}
+
 .budget-icons {
   width: 100px;
   height: 100px;
@@ -221,6 +232,7 @@ body {
   margin-top: 35px;
   margin-left: 90px;
 }
+<<<<<<< HEAD
 /*.carousel-img style*/
 .carousel-img {
   opacity: 0.9;
@@ -320,4 +332,36 @@ body {
   .footer .col-md-3 {
     text-align: center;
   }
+=======
+/* build Trip Styling */
+.banner-img {
+  width: 1400px;
+  height: 500px;
+  margin-top: 60px;
+  margin-left: 60px;
+}
+.buildtrip-background {
+  background: linear-gradient(90deg, #53a5ac 0%, #6942f6 100%);
+}
+.buildtravel-contents {
+  margin-top: 20px;
+  margin-left: 60px;
+}
+
+.destination-detail {
+  width: 150px;
+  height: 40px;
+  background-color: #013e5e;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 2px 1px #025d8e;
+}
+.date-detail {
+  width: 300px;
+  height: 40px;
+  background-color: #013e5e;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 2px 1px #025d8e;
+>>>>>>> 8b9a78aa0f22022d9dc28d70f584926ac67802f9
 }

@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import "../App.css";
 import img from "../assets/images/cover-img.png";
+import { useState } from "react";
 function LandingPage() {
   return (
     <>
@@ -13,7 +14,7 @@ function LandingPage() {
           <div>
             <Link to={"/signup"}>
               <button className="btn btn-dark fw-bold px-3 py-1 me-3">
-                Sign in
+                Sign Up
               </button>
             </Link>
             <Link to={"/login"}>
