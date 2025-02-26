@@ -6,7 +6,10 @@ import icon3 from "../assets/images/budget.png";
 import icon4 from "../assets/images/travelers.png";
 import icon5 from "../assets/images/days.png";
 
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+
 export default function PreviewTrip() {
+  const navigate = useNavigate(); // Initialize navigation
   const location = useLocation();
   const {
     destination,
@@ -22,6 +25,19 @@ export default function PreviewTrip() {
     selectedTravel: { title: "N/A", icon: icon4 },
   };
 
+  // Function to navigate to CreateTrip and focus on a specific field
+  const handleEdit = (field) => {
+    navigate("/createtrip", {
+      state: {
+        editField: field,
+        destination,
+        travelDays,
+        travelDate,
+        selectedBudget,
+        selectedTravel,
+      },
+    });
+  };
   return (
     <div>
       <h3 className="loginHeading mt-5">Preview Your Trip</h3>
@@ -30,26 +46,41 @@ export default function PreviewTrip() {
       </p>
 
       <div className="PreviewBox">
-        <div className="d-flex ms-4">
+        {/* Destination */}
+        <div
+          className="d-flex ms-4"
+          onClick={() => handleEdit("destination")}
+          style={{ cursor: "pointer" }}
+        >
           <img src={icon1} alt="" className="preview-icon1" />
           <div className="mt-5 ms-4">
-            <h4>Destination</h4>
+            <h4>Destination ✏️</h4>
             <p className="preview-description">{destination}</p>
           </div>
         </div>
 
-        <div className="d-flex ms-4">
+        {/* Travel Days */}
+        <div
+          className="d-flex ms-4"
+          onClick={() => handleEdit("travelDays")}
+          style={{ cursor: "pointer" }}
+        >
           <img src={icon5} alt="" className="preview-icon" />
           <div className="mt-2 ms-4">
-            <h4>Travel Day</h4>
+            <h4>Travel Day ✏️</h4>
             <p className="preview-description">{travelDays} days</p>
           </div>
         </div>
 
-        <div className="d-flex ms-4">
+        {/* Travel Date */}
+        <div
+          className="d-flex ms-4"
+          onClick={() => handleEdit("travelDate")}
+          style={{ cursor: "pointer" }}
+        >
           <img src={icon2} alt="" className="preview-icon" />
           <div className="mt-2 ms-4">
-            <h4>Travel Date</h4>
+            <h4>Travel Date ✏️</h4>
             <p className="preview-description">
               {travelDate.startDate
                 ? new Date(travelDate.startDate).toDateString()
@@ -62,19 +93,28 @@ export default function PreviewTrip() {
           </div>
         </div>
 
-        <div className="d-flex ms-4">
+        {/* Budget */}
+        <div
+          className="d-flex ms-4"
+          onClick={() => handleEdit("budget")}
+          style={{ cursor: "pointer" }}
+        >
           <img src={icon3} alt="" className="preview-icon" />
           <div className="mt-2 ms-4">
-            <h4>Budget</h4>
+            <h4>Budget ✏️</h4>
             <p className="preview-description">{selectedBudget.title}</p>
           </div>
         </div>
 
-        {/* 🟢 Display Selected Travel Option Dynamically */}
-        <div className="d-flex ms-4">
+        {/* Who is Traveling */}
+        <div
+          className="d-flex ms-4"
+          onClick={() => handleEdit("travelCompanion")}
+          style={{ cursor: "pointer" }}
+        >
           <img src={selectedTravel.icon} alt="" className="preview-icon" />
           <div className="mt-2 ms-4">
-            <h4>Who is Traveling</h4>
+            <h4>Who is Traveling ✏️</h4>
             <p className="preview-description">{selectedTravel.title}</p>
           </div>
         </div>
