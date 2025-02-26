@@ -221,3 +221,103 @@ body {
   margin-top: 35px;
   margin-left: 90px;
 }
+/*.carousel-img style*/
+.carousel-img {
+  opacity: 0.9;
+  height: 700px;
+}
+/*Carosul item style*/
+.carousel-item {
+  height: 850px;
+}
+
+/*Home page Card */
+.location-card {
+  border-radius: 15px;
+  overflow: hidden;
+  position: relative;
+}
+
+.location-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease-in-out;
+}
+
+.location-card:hover img {
+  transform: scale(1.05);
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.card-img-overlay {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  padding: 15px;
+}
+.card {
+  height: 400px;
+}
+/*Footer Section*/
+.hero-section {
+  height: 80vh;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background: url(../src/assets/images/p8.avif);
+}
+
+.overlay {
+  background: rgba(0, 0, 0, 0.5);
+}
+
+/* Footer Styling */
+.footer {
+  background: #111;
+  padding-bottom: 20px;
+  width: 100%;
+}
+
+.footer h5 {
+  color: #fff;
+  margin-bottom: 10px;
+}
+
+.footer p,
+.footer a {
+  color: #bbb;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.footer a.footer-link:hover {
+  color: #0d6efd;
+  text-decoration: underline;
+}
+
+.footer-icon i {
+  font-size: 1.5rem;
+  color: #bbb;
+  transition: color 0.3s ease-in-out;
+}
+
+.footer-icon i:hover {
+  color: #0d6efd;
+}
+
+@media (max-width: 768px) {
+  .footer .col-md-3 {
+    text-align: center;
+  }
+}

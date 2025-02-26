@@ -32,7 +32,11 @@ export default function CreateTrip() {
             <div className="input">
               <GooglePlacesAutocomplete
                 apiKey={import.meta.env.VITE_GOOGLE_PLACE_API_KEY}
+                selectProps={{
+                  placeholder: "Enter a destination...",
+                }}
               />
+              ;
             </div>
           </div>
           <div>
@@ -48,8 +52,12 @@ export default function CreateTrip() {
           <div>
             <h3 className="field mt-5">Travel Date</h3>
             <DatePicker
-              selected={selectedDates[0]} // 🟢 Fix: Using correct start date
-              onChange={(dates) => setSelectedDates(dates)} // Fix: Update state correctly
+              selected={selectedDates[0]}
+              onChange={(dates) => {
+                if (Array.isArray(dates)) {
+                  setSelectedDates(dates);
+                }
+              }}
               startDate={selectedDates[0]}
               endDate={selectedDates[1]}
               selectsRange
@@ -57,6 +65,7 @@ export default function CreateTrip() {
               isClearable
               className="input-field1 ms-5"
             />
+
             <div>
               <h3 className="field">Budget</h3>
               <div className="card-div">

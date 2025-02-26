@@ -21,20 +21,40 @@ export default function Profile() {
   };
   const handleSave = () => setIsEditing(false);
 
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProfile({ ...profile, profileImage: reader.result });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <>
       <Navbar />
-      <div className="container " style={{ marginTop: "80px" }}>
+      <div className="container " style={{ marginTop: "75px" }}>
         <h3 className="mb-3">My Profile</h3>
 
         {/* Profile Card */}
         <div className="card p-3 mb-3">
           <div className="d-flex align-items-center">
-            <img
-              src={img}
-              alt="Profile"
-              className="rounded-circle me-3"
-              style={{ width: "75px", height: "75px" }}
+            <label htmlFor="profileImageUpload">
+              <img
+                src={profile.profileImage}
+                alt="Profile"
+                className="rounded-circle me-3"
+                style={{ width: "80px", height: "80px", cursor: "pointer" }}
+              />
+            </label>
+            <input
+              type="file"
+              id="profileImageUpload"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={handleImageChange}
             />
             <div>
               <h5 className="mb-1">
@@ -88,13 +108,19 @@ export default function Profile() {
                 onChange={handleChange}
               />
               <button
-                className="btn btn-success me-2 mb-2"
+                className="btn btn-success me-2 mb-2 "
+                style={{ width: "300px", marginLeft: "200px" }}
                 onClick={handleSave}
               >
                 Save
               </button>
               <button
                 className="btn btn-secondary"
+                style={{
+                  width: "300px",
+                  marginTop: "-45.5px",
+                  marginLeft: "800px",
+                }}
                 onClick={() => setIsEditing(false)}
               >
                 Cancel
@@ -138,26 +164,32 @@ export default function Profile() {
                 value={profile.city}
                 onChange={handleChange}
               />
-              {/* <input
+              <input
                 className="form-control mb-2"
                 name="postalCode"
                 value={profile.postalCode}
                 onChange={handleChange}
-              /> */}
-              <input
+              />
+              {/* <input
                 className="form-control mb-2"
                 name="taxId"
                 value={profile.taxId}
                 onChange={handleChange}
-              />
+              /> */}
               <button
                 className="btn btn-success me-2 mb-2"
+                style={{ width: "300px", marginLeft: "200px" }}
                 onClick={handleSave}
               >
                 Save
               </button>
               <button
                 className="btn btn-secondary"
+                style={{
+                  width: "300px",
+                  marginTop: "-45.5px",
+                  marginLeft: "800px",
+                }}
                 onClick={() => setIsEditing(false)}
               >
                 Cancel
@@ -172,7 +204,7 @@ export default function Profile() {
                 <strong>City/State:</strong> {profile.city}
               </p>
               <p>
-                <strong>Pin code:</strong> {profile.postalCode}
+                <strong>Pin Code:</strong> {profile.postalCode}
               </p>
               {/* <p>
                 <strong>TAX ID:</strong> {profile.taxId}
