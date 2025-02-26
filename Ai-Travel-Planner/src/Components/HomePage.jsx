@@ -1,5 +1,5 @@
 import "../App.css";
-import "animate.css";
+import "animate.css/animate.min.css";
 import img1 from "../assets/images/s1.jpg";
 import img2 from "../assets/images/s2.jpg";
 import img3 from "../assets/images/s3.jpg";
@@ -42,40 +42,6 @@ export default function HomePage() {
         data-bs-ride="carousel"
         style={{ marginBottom: "-40px" }}
       >
-        {/* <div className="carousel-indicators">
-          <button
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide-to="0"
-            className="active"
-            aria-current="true"
-            aria-label="Slide 1"
-          ></button>
-          <button
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide-to="1"
-            aria-label="Slide 2"
-          ></button>
-          <button
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide-to="2"
-            aria-label="Slide 3"
-          ></button>
-          <button
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide-to="3"
-            aria-label="Slide 4"
-          ></button>
-          <button
-            type="button"
-            data-bs-target="#carouselExampleCaptions"
-            data-bs-slide-to="4"
-            aria-label="Slide 5"
-          ></button>
-        </div> */}
         <div className="carousel-inner">
           <div className="carousel-item active" data-bs-interval="2000">
             <img src={img1} className="carousel-img" alt="Slide 1" />
@@ -85,7 +51,6 @@ export default function HomePage() {
             >
               <h5>Adventure Travel – Embrace the thrill!</h5>
               <p>
-                {" "}
                 Conquer mountains, dive into the wild, and experience the
                 adrenaline rush of extreme adventures.
               </p>
@@ -113,7 +78,7 @@ export default function HomePage() {
               <h5>Historical Tours – Walk through time!</h5>
               <p>
                 Discover ancient wonders, iconic landmarks, and the rich
-                heritage of civilizations past.{" "}
+                heritage of civilizations past.
               </p>
             </div>
           </div>
@@ -126,7 +91,7 @@ export default function HomePage() {
               <h5>Wildlife & Safari – Into the wild!</h5>
               <p>
                 Witness majestic creatures in their natural habitat and explore
-                lush forests and safaris.{" "}
+                lush forests and safaris.
               </p>
             </div>
           </div>

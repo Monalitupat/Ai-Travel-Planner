@@ -232,7 +232,6 @@ body {
   margin-top: 35px;
   margin-left: 90px;
 }
-<<<<<<< HEAD
 /*.carousel-img style*/
 .carousel-img {
   opacity: 0.9;
@@ -332,7 +331,7 @@ body {
   .footer .col-md-3 {
     text-align: center;
   }
-=======
+}
 /* build Trip Styling */
 .banner-img {
   width: 1400px;
@@ -363,5 +362,4 @@ body {
   color: white;
   border-radius: 5px;
   box-shadow: 2px 1px #025d8e;
->>>>>>> 8b9a78aa0f22022d9dc28d70f584926ac67802f9
 }

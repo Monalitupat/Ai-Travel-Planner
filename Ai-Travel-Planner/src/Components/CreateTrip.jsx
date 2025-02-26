@@ -139,19 +139,6 @@ export default function CreateTrip() {
               generate a customized itinerary based on your preferences.
             </p>
           </div>
-<<<<<<< HEAD
-          <div>
-            <h3 className="field">Your Destination</h3>
-            <div className="input">
-              <GooglePlacesAutocomplete
-                apiKey={import.meta.env.VITE_GOOGLE_PLACE_API_KEY}
-                selectProps={{
-                  placeholder: "Enter a destination...",
-                }}
-              />
-              ;
-            </div>
-=======
 
           {/* Destination Input */}
           <div ref={destinationRef}>
@@ -166,7 +153,6 @@ export default function CreateTrip() {
             {errors.destination && (
               <p className="text-danger">{errors.destination}</p>
             )}
->>>>>>> 8b9a78aa0f22022d9dc28d70f584926ac67802f9
           </div>
 
           {/* Travel Days Input */}
@@ -190,16 +176,6 @@ export default function CreateTrip() {
           <div ref={datePickerRef}>
             <h3 className="field mt-5">Travel Date 📅</h3>
             <DatePicker
-<<<<<<< HEAD
-              selected={selectedDates[0]}
-              onChange={(dates) => {
-                if (Array.isArray(dates)) {
-                  setSelectedDates(dates);
-                }
-              }}
-              startDate={selectedDates[0]}
-              endDate={selectedDates[1]}
-=======
               selected={travelDate.startDate}
               onChange={(dates) => {
                 const [start, end] = dates;
@@ -207,28 +183,15 @@ export default function CreateTrip() {
               }}
               startDate={travelDate.startDate}
               endDate={travelDate.endDate}
->>>>>>> 8b9a78aa0f22022d9dc28d70f584926ac67802f9
               selectsRange
               placeholderText="Select your travel dates"
               isClearable
               className="input-field1 ms-5"
             />
-<<<<<<< HEAD
-
-            <div>
-              <h3 className="field">Budget</h3>
-              <div className="card-div">
-                <div className="budget-card">
-                  <img src={icon1} alt="icon" className="budget-icons" />
-                  <p className="card-heading">Cheap</p>
-                  <p className="card-subheading">Stay conscious of costs</p>
-                </div>
-=======
             {errors.travelDate && (
               <p className="text-danger">{errors.travelDate}</p>
             )}
           </div>
->>>>>>> 8b9a78aa0f22022d9dc28d70f584926ac67802f9
 
           {/* Budget Selection */}
           <div ref={budgetRef}>
