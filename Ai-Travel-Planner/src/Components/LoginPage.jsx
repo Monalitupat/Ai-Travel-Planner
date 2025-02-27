@@ -22,8 +22,12 @@ export default function LoginPage() {
     );
 
     if (foundUser) {
-      localStorage.setItem("isAuthenticated", "true"); // Store authentication status
-      localStorage.setItem("currentUser", JSON.stringify(foundUser)); // Store user details
+      // ✅ Store authentication status
+      localStorage.setItem("isAuthenticated", "true");
+
+      // ✅ Store full user details in localStorage
+      localStorage.setItem("user", JSON.stringify(foundUser));
+
       alert("Login successful!");
       navigate("/home"); // Redirect to home page
     } else {

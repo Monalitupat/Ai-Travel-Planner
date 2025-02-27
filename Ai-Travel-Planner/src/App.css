@@ -158,12 +158,25 @@ body {
   justify-content: space-between;
 }
 .budget-card {
-  border: 3px solid #001a6e;
+  margin-top: 30px;
+  border: 2px solid transparent;
+  padding: 13px;
+  transition: all 0.3s ease;
   border-radius: 10px;
   width: 380px;
   height: 160px;
-  padding: 20px;
-  box-shadow: 1px 2px;
+  box-shadow: 2px 2px 3px 3px;
+}
+.budget-card:hover {
+  box-shadow: 3px 3px 3px 3px;
+
+  transform: scale(1.04);
+}
+.budget-card.selected {
+  border: 2px solid transparent;
+  background-color: #64befe; /* Light blue background */
+  box-shadow: 0px 4px 8px;
+  transform: scale(1.09); /* Slight zoom effect */
 }
 .budget-icons {
   width: 100px;
@@ -213,6 +226,12 @@ body {
   height: 60px;
   margin-top: 10px;
   margin-left: 70px;
+}
+.preview-icon:hover {
+  transform: scale(1.5);
+}
+.preview-icon1:hover {
+  transform: scale(1.5);
 }
 .preview-description {
   margin-top: -5px;

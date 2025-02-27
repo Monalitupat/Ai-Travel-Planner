@@ -73,8 +73,8 @@ import Profile from "./Components/Profile.jsx";
 import LoginPage from "./Components/LoginPage.jsx";
 import SignupPage from "./Components/SignupPage.jsx";
 import PreviewTrip from "./Components/PreviewTrip.jsx";
-import BuildTrip from "./Components/BuildTrip.jsx";
-import PrivateRoute from "./Service/PrivateRoute.jsx";
+import BuildTrip from "./View-trip/[tripId]/BuildTrip.jsx";
+
 import LandingPage from "./Components/LandingPage.jsx";
 
 const router = createBrowserRouter([
@@ -89,51 +89,27 @@ const router = createBrowserRouter([
       // Protected Routes
       {
         path: "/home",
-        element: (
-          <PrivateRoute>
-            <HomePage />
-          </PrivateRoute>
-        ),
+        element: <HomePage />,
       },
       {
         path: "/createTrip",
-        element: (
-          <PrivateRoute>
-            <CreateTrip />
-          </PrivateRoute>
-        ),
+        element: <CreateTrip />,
       },
       {
         path: "/myTrip",
-        element: (
-          <PrivateRoute>
-            <MyTrip />
-          </PrivateRoute>
-        ),
+        element: <MyTrip />,
       },
       {
         path: "/profile",
-        element: (
-          <PrivateRoute>
-            <Profile />
-          </PrivateRoute>
-        ),
+        element: <Profile />,
       },
       {
         path: "/preview",
-        element: (
-          <PrivateRoute>
-            <PreviewTrip />
-          </PrivateRoute>
-        ),
+        element: <PreviewTrip />,
       },
       {
-        path: "/buildtrip",
-        element: (
-          <PrivateRoute>
-            <BuildTrip />
-          </PrivateRoute>
-        ),
+        path: "/view-trip/:tripId",
+        element: <BuildTrip />,
       },
     ],
   },

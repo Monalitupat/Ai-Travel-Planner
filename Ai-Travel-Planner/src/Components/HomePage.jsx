@@ -1,12 +1,10 @@
 import { useInView } from "react-intersection-observer";
 
 import "../App.css";
-<<<<<<< HEAD
+
 import "animate.css";
 import { useState, useEffect, useRef } from "react";
-=======
-import "animate.css/animate.min.css";
->>>>>>> e561768c8323afd3af6f32b5e984ee1555317a95
+
 import img1 from "../assets/images/s1.jpg";
 import img2 from "../assets/images/s2.jpg";
 import img3 from "../assets/images/s3.jpg";
@@ -38,7 +36,6 @@ export default function HomePage() {
     { name: "ANNAPURNA, NEPAL", img: nepal, rating: 4.9, reviews: "1.5K" },
     { name: "DUBAI, UAE", img: dubai, rating: 4.6, reviews: "890" },
   ];
-<<<<<<< HEAD
 
   const [animate, setAnimate] = useState(false);
 
@@ -63,18 +60,10 @@ export default function HomePage() {
     triggerOnce: true,
     threshold: 0.2,
   });
-=======
-  const handleLogout = () => {
-    localStorage.removeItem("isAuthenticated");
-    localStorage.removeItem("currentUser");
-    navigate("/login");
-  };
->>>>>>> e561768c8323afd3af6f32b5e984ee1555317a95
 
   return (
     <>
       <Navbar />
-
       <div
         id="carouselExampleCaptions"
         className="carousel slide"
@@ -173,7 +162,6 @@ export default function HomePage() {
           {/* <span className="visually-hidden">Next</span> */}
         </button>
       </div>
-
       <div ref={section1Ref} className="container">
         <h2
           className={`text-white text-center mb-4 animate__animated ${
@@ -214,7 +202,6 @@ export default function HomePage() {
           ))}
         </div>
       </div>
-
       <section
         ref={section2Ref}
         className="text-center text-light  py-5"
@@ -235,7 +222,7 @@ export default function HomePage() {
           >
             Enjoy Trip With Us! <br />
             Experience Your Imaginations <br />
-            Coming To Life ✈️
+            Coming To Life ✈
           </h2>
 
           <div
@@ -292,7 +279,6 @@ export default function HomePage() {
           We've Taken Travelers
         </h4>
       </section>
-
       <section
         ref={section3Ref}
         className="hero-section text-center text-white position-relative"
