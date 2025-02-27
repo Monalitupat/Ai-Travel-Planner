@@ -15,10 +15,9 @@ import icon2 from "../assets/images/indian2.avif";
 import icon3 from "../assets/images/indian3.avif";
 
 import { Link } from "react-router-dom";
-
 import { FaStar } from "react-icons/fa"; // Import star icon
-
 import Navbar from "./Navbar";
+import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
   const locations = [
@@ -32,6 +31,12 @@ export default function HomePage() {
     { name: "ANNAPURNA, NEPAL", img: nepal, rating: 4.9, reviews: "1.5K" },
     { name: "DUBAI, UAE", img: dubai, rating: 4.6, reviews: "890" },
   ];
+  const handleLogout = () => {
+    localStorage.removeItem("isAuthenticated");
+    localStorage.removeItem("currentUser");
+    navigate("/login");
+  };
+
   return (
     <>
       <Navbar />

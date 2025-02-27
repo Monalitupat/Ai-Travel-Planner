@@ -1,3 +1,66 @@
+// import { StrictMode } from "react";
+// import { createRoot } from "react-dom/client";
+// import "./index.css";
+// import { createBrowserRouter, RouterProvider } from "react-router-dom";
+// import { GoogleOAuthProvider } from "@react-oauth/google";
+// import App from "./App.jsx";
+// import HomePage from "./Components/HomePage.jsx";
+// import CreateTrip from "./Components/CreateTrip.jsx";
+// import MyTrip from "./Components/MyTrip.jsx";
+// import Profile from "./Components/Profile.jsx";
+// import LoginPage from "./Components/LoginPage.jsx";
+// import SignupPage from "./Components/SignupPage.jsx";
+// import PreviewTrip from "./Components/PreviewTrip.jsx";
+// import BuildTrip from "./Components/BuildTrip.jsx";
+
+// const router = createBrowserRouter([
+//   {
+//     path: "/",
+//     element: <App />,
+//   },
+//   {
+//     path: "/login",
+//     element: <LoginPage />,
+//   },
+//   {
+//     path: "/signup",
+//     element: <SignupPage />,
+//   },
+//   {
+//     path: "/home",
+//     element: <HomePage />,
+//   },
+//   {
+//     path: "/createTrip",
+//     element: <CreateTrip />,
+//   },
+//   {
+//     path: "/myTrip",
+//     element: <MyTrip />,
+//   },
+//   {
+//     path: "/profile",
+//     element: <Profile />,
+//   },
+//   {
+//     path: "/preview",
+//     element: <PreviewTrip />,
+//   },
+//   {
+//     path: "/buildtrip",
+//     element: <BuildTrip />,
+//   },
+// ]);
+
+// createRoot(document.getElementById("root")).render(
+//   <StrictMode>
+//     {/* <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_AUTH_CLIENT_ID}> */}
+//     <RouterProvider router={router} />
+//     {/* </GoogleOAuthProvider> */}
+//   </StrictMode>
+// );
+
+import React from "react";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
@@ -11,43 +74,68 @@ import LoginPage from "./Components/LoginPage.jsx";
 import SignupPage from "./Components/SignupPage.jsx";
 import PreviewTrip from "./Components/PreviewTrip.jsx";
 import BuildTrip from "./Components/BuildTrip.jsx";
+import PrivateRoute from "./Service/PrivateRoute.jsx";
+import LandingPage from "./Components/LandingPage.jsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
-  },
-  {
-    path: "/login",
-    element: <LoginPage />,
-  },
-  {
-    path: "/signup",
-    element: <SignupPage />,
-  },
-  {
-    path: "/home",
-    element: <HomePage />,
-  },
-  {
-    path: "/createTrip",
-    element: <CreateTrip />,
-  },
-  {
-    path: "/myTrip",
-    element: <MyTrip />,
-  },
-  {
-    path: "/profile",
-    element: <Profile />,
-  },
-  {
-    path: "/preview",
-    element: <PreviewTrip />,
-  },
-  {
-    path: "/buildtrip",
-    element: <BuildTrip />,
+    element: <App />, // Acts as a layout
+    children: [
+      { path: "/", element: <LandingPage /> }, // Redirect root to login
+      { path: "/login", element: <LoginPage /> },
+      { path: "/signup", element: <SignupPage /> },
+
+      // Protected Routes
+      {
+        path: "/home",
+        element: (
+          <PrivateRoute>
+            <HomePage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/createTrip",
+        element: (
+          <PrivateRoute>
+            <CreateTrip />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/myTrip",
+        element: (
+          <PrivateRoute>
+            <MyTrip />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/profile",
+        element: (
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/preview",
+        element: (
+          <PrivateRoute>
+            <PreviewTrip />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/buildtrip",
+        element: (
+          <PrivateRoute>
+            <BuildTrip />
+          </PrivateRoute>
+        ),
+      },
+    ],
   },
 ]);
 
