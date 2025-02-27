@@ -1,5 +1,8 @@
+import { useInView } from "react-intersection-observer";
+
 import "../App.css";
 import "animate.css";
+import { useState, useEffect, useRef } from "react";
 import img1 from "../assets/images/s1.jpg";
 import img2 from "../assets/images/s2.jpg";
 import img3 from "../assets/images/s3.jpg";
@@ -32,6 +35,31 @@ export default function HomePage() {
     { name: "ANNAPURNA, NEPAL", img: nepal, rating: 4.9, reviews: "1.5K" },
     { name: "DUBAI, UAE", img: dubai, rating: 4.6, reviews: "890" },
   ];
+
+  const [animate, setAnimate] = useState(false);
+
+  const { ref, inView } = useInView({ triggerOnce: true });
+
+  useEffect(() => {
+    if (inView) setAnimate(true);
+  }, [inView]);
+
+  // Separate useInView hooks for different sections
+  const { ref: section1Ref, inView: section1InView } = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  });
+
+  const { ref: section2Ref, inView: section2InView } = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  });
+
+  const { ref: section3Ref, inView: section3InView } = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  });
+
   return (
     <>
       <Navbar />
@@ -81,7 +109,7 @@ export default function HomePage() {
             <img src={img1} className="carousel-img" alt="Slide 1" />
             <div
               className="carousel-caption d-none d-md-block"
-              style={{ marginBottom: "170px" }}
+              style={{ marginBottom: "250px" }}
             >
               <h5>Adventure Travel – Embrace the thrill!</h5>
               <p>
@@ -95,7 +123,7 @@ export default function HomePage() {
             <img src={img2} className="carousel-img" alt="Slide 2" />
             <div
               className="carousel-caption d-none d-md-block"
-              style={{ marginBottom: "170px" }}
+              style={{ marginBottom: "250px" }}
             >
               <h5>Beach Getaways – Sun, sand, and serenity!</h5>
               <p>
@@ -108,7 +136,7 @@ export default function HomePage() {
             <img src={img3} className="carousel-img" alt="Slide 3" />
             <div
               className="carousel-caption d-none d-md-block"
-              style={{ marginBottom: "170px" }}
+              style={{ marginBottom: "250px" }}
             >
               <h5>Historical Tours – Walk through time!</h5>
               <p>
@@ -121,7 +149,7 @@ export default function HomePage() {
             <img src={img4} className="carousel-img" alt="Slide 4" />
             <div
               className="carousel-caption d-none d-md-block"
-              style={{ marginBottom: "170px" }}
+              style={{ marginBottom: "250px" }}
             >
               <h5>Wildlife & Safari – Into the wild!</h5>
               <p>
@@ -134,7 +162,7 @@ export default function HomePage() {
             <img src={img5} className="carousel-img" alt="Slide 5" />
             <div
               className="carousel-caption d-none d-md-block"
-              style={{ marginBottom: "170px" }}
+              style={{ marginBottom: "250px" }}
             >
               <h5>Road Trips – Hit the road!</h5>
               <p>
@@ -170,11 +198,22 @@ export default function HomePage() {
         </button>
       </div>
 
-      <div className="container 170 ">
-        <h2 className="text-white text-center mb-4 ">Explore Top Locations</h2>
+      <div ref={section1Ref} className="container">
+        <h2
+          className={`text-white text-center mb-4 animate__animated ${
+            section1InView ? "animate__backInLeft" : "opacity-0"
+          }`}
+        >
+          Explore Top Locations
+        </h2>
         <div className="row">
           {locations.map((location, index) => (
-            <div key={index} className="col-md-3">
+            <div
+              key={index}
+              className={`col-md-3 animate__animated ${
+                section1InView ? "animate__fadeInUp" : "opacity-0"
+              }`}
+            >
               <div className="card location-card border-0">
                 <img
                   src={location.img}
@@ -201,6 +240,7 @@ export default function HomePage() {
       </div>
 
       <section
+        ref={section2Ref}
         className="text-center text-light  py-5"
         style={{
           background: "linear-gradient(90deg, #7cf5ff 0%, #6439ff 100%)",
@@ -208,15 +248,25 @@ export default function HomePage() {
       >
         <div className="container">
           <h2
-            className="fw-bold"
-            style={{ marginLeft: "-300px", marginTop: "300px" }}
+            className={`fw-bold animate__animated ${
+              section2InView ? "animate__fadeInLeft" : "opacity-0"
+            }`}
+            style={{
+              marginLeft: "-450px",
+              marginTop: "220px",
+              fontSize: "40px",
+            }}
           >
             Enjoy Trip With Us! <br />
             Experience Your Imaginations <br />
             Coming To Life ✈️
           </h2>
 
-          <div className="d-flex justify-content-center mt-1">
+          <div
+            className={`d-flex justify-content-center mt-1 animate__animated ${
+              section2InView ? "animate__fadeInRight" : "opacity-0"
+            }`}
+          >
             <div
               className=""
               style={{ marginLeft: "800px", marginBottom: "-20px" }}
@@ -257,7 +307,9 @@ export default function HomePage() {
           </div>
         </div>
         <h4
-          className=" fw-bold"
+          className={`fw-bold animate__animated ${
+            section2InView ? "animate__fadeInUp" : "opacity-0"
+          }`}
           style={{ marginTop: "210px", fontSize: "40px", marginBottom: "50px" }}
         >
           Look At All Of The Wonderful Places <br />
@@ -266,15 +318,17 @@ export default function HomePage() {
       </section>
 
       <section
+        ref={section3Ref}
         className="hero-section text-center text-white position-relative"
         style={{ height: "600px" }}
       >
         {/* Background image will be added via CSS */}
         <div className="overlay position-absolute top-0 start-0 w-100 h-100"></div>
-
         <div
-          className="container position-relative"
-          style={{ marginTop: "100px", marginBottom: "95px" }}
+          className={`container position-relative animate__animated ${
+            section3InView ? "animate__zoomIn" : "opacity-0"
+          }`}
+          style={{ marginTop: "160px", marginBottom: "95px" }}
         >
           <h2 className="fw-bold display-5">
             Ready To Travel With Us On Your Next Trip?
@@ -285,7 +339,6 @@ export default function HomePage() {
             </button>
           </Link>
         </div>
-
         {/* Footer Section */}
         <footer className="footer mt-5 pt-4 mb-0 text-white">
           <div className="container">
@@ -357,11 +410,11 @@ export default function HomePage() {
 
             {/* Footer Bottom Line */}
             <hr className="my-4 border-light" />
-            <p className="text-center">
-              &copy; 2025 WANDERWISE. Powered by RTSoftDeveloper
-            </p>
           </div>
-        </footer>
+        </footer>{" "}
+        <p className="text-center" style={{ marginTop: "-30px" }}>
+          &copy; 2025 WANDERWISE. Powered by RTSoftDeveloper
+        </p>
       </section>
     </>
   );

@@ -1,9 +1,10 @@
 import "../App.css";
 import Navbar from "./Navbar";
 import React, { useState } from "react";
-import img from "../assets/images/image.png";
+import { useNavigate } from "react-router-dom";
 
 export default function Profile() {
+  const navigate = useNavigate(); // Initialize useNavigate
   const [isEditing, setIsEditing] = useState(false);
   const [profile, setProfile] = useState({
     firstName: "Khemansh",
@@ -16,6 +17,11 @@ export default function Profile() {
     postalCode: "441614",
   });
   const handleEdit = () => setIsEditing(!isEditing);
+  const handleLogout = () => {
+    // Clear user session (if implemented)
+    localStorage.removeItem("userToken"); // Example: Remove token from storage
+    navigate("/"); // Redirect to landing page
+  };
   const handleChange = (e) => {
     setProfile({ ...profile, [e.target.name]: e.target.value });
   };
@@ -39,7 +45,7 @@ export default function Profile() {
         <h3 className="mb-3">My Profile</h3>
 
         {/* Profile Card */}
-        <div className="card p-3 mb-3">
+        <div className=" p-3 mb-3" id="profileCard">
           <div className="d-flex align-items-center">
             <label htmlFor="profileImageUpload">
               <img
@@ -73,7 +79,7 @@ export default function Profile() {
         </div>
 
         {/* Personal Information */}
-        <div className="card p-3 mb-3">
+        <div className=" p-3 mb-3" id="personalInfo">
           <h5>Personal Information</h5>
           {isEditing ? (
             <>
@@ -148,7 +154,7 @@ export default function Profile() {
         </div>
 
         {/* Address Information */}
-        <div className="card p-3">
+        <div className="card p-3" id="addInfo">
           <h5>Address</h5>
           {isEditing ? (
             <>
@@ -211,6 +217,12 @@ export default function Profile() {
               </p> */}
             </div>
           )}
+        </div>
+        {/* Logout Button */}
+        <div className="text-center mt-3 mb-4">
+          <button className="btn btn-danger" onClick={handleLogout}>
+            Logout
+          </button>
         </div>
       </div>
     </>

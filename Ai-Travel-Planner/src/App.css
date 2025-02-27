@@ -158,24 +158,13 @@ body {
   justify-content: space-between;
 }
 .budget-card {
+  border: 3px solid #001a6e;
   border-radius: 10px;
   width: 380px;
   height: 160px;
   padding: 20px;
-  box-shadow: 1px 1px 2px 2px;
-  border: 2px solid transparent;
-  padding: 10px;
-  transition: all 0.3s ease;
+  box-shadow: 1px 2px;
 }
-.budget-card:hover {
-  transform: scale(1.03); /* Slight zoom effect */
-}
-
-.budget-card.selected {
-  box-shadow: 2px 2px 3px 3px #001a6e;
-  transform: scale(1.09); /* Slight zoom effect */
-}
-
 .budget-icons {
   width: 100px;
   height: 100px;
@@ -232,15 +221,37 @@ body {
   margin-top: 35px;
   margin-left: 90px;
 }
-<<<<<<< HEAD
 /*.carousel-img style*/
 .carousel-img {
   opacity: 0.9;
-  height: 700px;
+  height: 80vh; /* Adjust based on testing */
+  object-fit: cover;
 }
 /*Carosul item style*/
 .carousel-item {
   height: 850px;
+}
+/*Carousal Caption*/
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.carousel-caption {
+  opacity: 0; /* Initially hidden */
+  transform: translateY(50px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.carousel-item.active .carousel-caption {
+  opacity: 1; /* Show when active */
+  transform: translateY(0);
 }
 
 /*Home page Card */
@@ -332,36 +343,29 @@ body {
   .footer .col-md-3 {
     text-align: center;
   }
-=======
-/* build Trip Styling */
-.banner-img {
-  width: 1400px;
-  height: 500px;
-  margin-top: 60px;
-  margin-left: 60px;
 }
-.buildtrip-background {
-  background: linear-gradient(90deg, #53a5ac 0%, #6942f6 100%);
-}
-.buildtravel-contents {
-  margin-top: 20px;
-  margin-left: 60px;
-}
-
-.destination-detail {
-  width: 150px;
-  height: 40px;
-  background-color: #013e5e;
-  color: white;
+/*Profile page card*/
+#profileCard {
+  height: 120px;
+  width: 1300px;
+  background-color: white;
   border-radius: 5px;
-  box-shadow: 2px 1px #025d8e;
 }
-.date-detail {
-  width: 300px;
-  height: 40px;
-  background-color: #013e5e;
-  color: white;
-  border-radius: 5px;
-  box-shadow: 2px 1px #025d8e;
->>>>>>> 8b9a78aa0f22022d9dc28d70f584926ac67802f9
+#personalInfo {
+  height: 350px;
+  width: 1300px;
+  background: white;
+}
+#addInfo {
+  height: 250px;
+}
+/*Aniamtion*/
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.fade-in.active {
+  opacity: 1;
+  transform: translateY(0);
 }
