@@ -1,6 +1,34 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../App.css";
+import { useState } from "react";
+import { auth } from "../Service/firebaseConfig"; // Import Firebase Auth
+import { createUserWithEmailAndPassword } from "firebase/auth";
+
 export default function SignupPage() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const handleSignup = (e) => {
+    e.preventDefault();
+
+    // Check if user already exists
+    let users = JSON.parse(localStorage.getItem("users")) || [];
+    if (users.some((user) => user.email === email)) {
+      alert("User already exists! Please login.");
+      return;
+    }
+
+    // Save user data
+    const newUser = { name, email, password };
+    users.push(newUser);
+    localStorage.setItem("users", JSON.stringify(users));
+
+    alert("Signup successful! Please login.");
+    navigate("/login"); // Redirect to login page
+  };
+
   return (
     <>
       <nav className="navbar navbar-expand-lg fixed-top">
@@ -14,14 +42,17 @@ export default function SignupPage() {
       <div>
         <h3 className="loginHeading">Sign Up Page</h3>
         <div className="LoginBox">
-          <form className="ms-5 py-4">
+          <form className="ms-5 py-4" onSubmit={handleSignup}>
             <div className="mb-3 mt-4 ms-2">
               <label for="exampleInputEmail1" className="form-label">
                 Full Name
               </label>
               <input
-                type="email"
+                type="text"
                 className="form-control input-field"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
               />
@@ -33,6 +64,9 @@ export default function SignupPage() {
               <input
                 type="email"
                 className="form-control input-field"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
                 id="exampleInputEmail1"
                 aria-describedby="emailHelp"
               />
@@ -44,14 +78,17 @@ export default function SignupPage() {
               <input
                 type="password"
                 className="form-control input-field"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
                 id="exampleInputPassword1"
               />
             </div>
-            <Link to={"/login"}>
-              <button type="submit" className="btn btn-dark px-5 mt-3 Loginbtn">
-                Sign Up
-              </button>
-            </Link>
+
+            <button type="submit" className="btn btn-dark px-5 mt-3 Loginbtn">
+              Sign Up
+            </button>
+
             <Link to={"/login"}>
               <p className="textbtn ps-4">Login if already Exist</p>
             </Link>

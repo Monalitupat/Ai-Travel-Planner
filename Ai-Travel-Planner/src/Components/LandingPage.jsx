@@ -1,8 +1,26 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "../App.css";
 import img from "../assets/images/cover-img.png";
-import { useState } from "react";
+import { useEffect } from "react";
+// const [openDailog, setOpenDailog] = useState(false);
 function LandingPage() {
+  // const OnSignUp = () => {
+  //   const user = localStorage.getItem("user");
+
+  //   if (!user) {
+  //     setOpenDailog(true);
+  //     return;
+  //   }
+  // };
+
+  const navigate = useNavigate();
+
+  // useEffect(() => {
+  //   const isAuthenticated = localStorage.getItem("isAuthenticated") === "true";
+  //   if (isAuthenticated) {
+  //     navigate("/home");
+  //   }
+  // }, []);
   return (
     <>
       <nav className="navbar navbar-expand-lg fixed-top">
@@ -13,7 +31,10 @@ function LandingPage() {
           </div>
           <div>
             <Link to={"/signup"}>
-              <button className="btn btn-dark fw-bold px-3 py-1 me-3">
+              <button
+                className="btn btn-dark fw-bold px-3 py-1 me-3"
+                // onClick={() => OnSignUp()}
+              >
                 Sign Up
               </button>
             </Link>
@@ -41,6 +62,7 @@ function LandingPage() {
             type="button"
             className="btn btn-dark btn-lg fw-bold fs-5 "
             style={{ marginLeft: "640px", marginTop: "20px" }}
+            onClick={() => navigate("/login")}
           >
             Get Started, It's Free
           </button>

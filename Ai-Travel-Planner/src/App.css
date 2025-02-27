@@ -224,8 +224,7 @@ body {
 /*.carousel-img style*/
 .carousel-img {
   opacity: 0.9;
-  height: 80vh; /* Adjust based on testing */
-  object-fit: cover;
+  height: 700px;
 }
 /*Carosul item style*/
 .carousel-item {
@@ -340,32 +339,39 @@ body {
 }
 
 @media (max-width: 768px) {
-  .footer .col-md-3 {
-    text-align: center;
-  }
 }
-/*Profile page card*/
-#profileCard {
-  height: 120px;
-  width: 1300px;
-  background-color: white;
+.footer .col-md-3 {
+  text-align: center;
+}
+
+/* build Trip Styling */
+.banner-img {
+  width: 1400px;
+  height: 500px;
+  margin-top: 60px;
+  margin-left: 60px;
+}
+.buildtrip-background {
+  background: linear-gradient(90deg, #53a5ac 0%, #6942f6 100%);
+}
+.buildtravel-contents {
+  margin-top: 20px;
+  margin-left: 60px;
+}
+
+.destination-detail {
+  width: 150px;
+  height: 40px;
+  background-color: #013e5e;
+  color: white;
   border-radius: 5px;
+  box-shadow: 2px 1px #025d8e;
 }
-#personalInfo {
-  height: 350px;
-  width: 1300px;
-  background: white;
-}
-#addInfo {
-  height: 250px;
-}
-/*Aniamtion*/
-.fade-in {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-.fade-in.active {
-  opacity: 1;
-  transform: translateY(0);
+.date-detail {
+  width: 300px;
+  height: 40px;
+  background-color: #013e5e;
+  color: white;
+  border-radius: 5px;
+  box-shadow: 2px 1px #025d8e;
 }

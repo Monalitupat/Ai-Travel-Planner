@@ -1,16 +1,20 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import icon1 from "../assets/images/destination.png";
 import icon2 from "../assets/images/date.png";
 import icon3 from "../assets/images/budget.png";
 import icon4 from "../assets/images/travelers.png";
 import icon5 from "../assets/images/days.png";
-
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { db } from "../Service/firebaseConfig";
+import { AI_PROMPT } from "../Constants/options";
+import { chatSession } from "../Service/AIModel";
+import { doc, setDoc } from "firebase/firestore";
 
 export default function PreviewTrip() {
   const navigate = useNavigate(); // Initialize navigation
   const location = useLocation();
+  const [loading, setLoading] = useState(false);
   const {
     destination,
     travelDays,
@@ -37,6 +41,57 @@ export default function PreviewTrip() {
         selectedTravel,
       },
     });
+  };
+
+  const OnBuildTrip = async () => {
+    setLoading(true);
+    const FINAL_PROMPT = AI_PROMPT.replace(
+      "{destination}",
+      location.state?.destination
+    )
+      .replace("{travelDays}", location.state?.travelDays)
+      .replace(
+        "{travelDate}",
+        location.state?.travelDate?.startDate,
+        location.state?.travelDate?.endDate
+      )
+      .replace("{selectBudget}", location.state?.selectedBudget)
+      .replace("{selectTravel}", location.state?.selectedTravel);
+
+    const result = await chatSession.sendMessage(FINAL_PROMPT);
+
+    console.log("--", result?.response?.text());
+    setLoading(false);
+    SaveAiTrip(result?.response?.text());
+  };
+  const SaveAiTrip = async (TripData) => {
+    setLoading(true);
+    const user = JSON.parse(localStorage.getItem("user"));
+
+    // Add a new document in collection "cities"
+    // Debugging - Check if user exists
+    if (!user || !user.email) {
+      console.error("User not found or email is missing:", user);
+      alert("User is not logged in. Please log in again.");
+      setLoading(false);
+      return; // Stop execution
+    }
+
+    const docId = Date.now().toString();
+
+    try {
+      await setDoc(doc(db, "AITrips", docId), {
+        userSelection: location,
+        tripData: TripData,
+        userEmail: user.email, // Ensure this is not undefined
+        id: docId,
+      });
+      console.log("Trip saved successfully!");
+    } catch (error) {
+      console.error("Error saving trip:", error);
+    }
+
+    setLoading(false);
   };
   return (
     <div>
@@ -137,8 +192,16 @@ export default function PreviewTrip() {
               selectedTravel,
             }}
           >
-            <button className="btn btn-dark fw-bold fs-6 px-4 py-2">
-              Build Your Trip
+            <button
+              className="btn btn-dark fw-bold fs-6 px-4 py-2"
+              onClick={() => OnBuildTrip()}
+              disabled={loading}
+            >
+              {loading ? (
+                <AiOutlineLoading3Quarters className="h-7 w-7 animate-spin" />
+              ) : (
+                "Build Your Trip"
+              )}
             </button>
           </Link>
 
@@ -152,3 +215,5 @@ export default function PreviewTrip() {
     </div>
   );
 }
+
+// export const AI_PROMPT = 'Generate Travel Plan for Location : {location}, for {totalDays} Days for {traveler} with a {budget} budget, give me Hotels options list'
