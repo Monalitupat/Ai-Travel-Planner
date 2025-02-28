@@ -64,7 +64,6 @@ export default function HomePage() {
   return (
     <>
       <Navbar />
-
       <div
         id="carouselExampleCaptions"
         className="carousel slide"
@@ -163,7 +162,6 @@ export default function HomePage() {
           {/* <span className="visually-hidden">Next</span> */}
         </button>
       </div>
-
       <div ref={section1Ref} className="container">
         <h2
           className={`text-white text-center mb-4 animate__animated ${
@@ -204,7 +202,6 @@ export default function HomePage() {
           ))}
         </div>
       </div>
-
       <section
         ref={section2Ref}
         className="text-center text-light  py-5"
@@ -225,7 +222,7 @@ export default function HomePage() {
           >
             Enjoy Trip With Us! <br />
             Experience Your Imaginations <br />
-            Coming To Life ✈️
+            Coming To Life ✈
           </h2>
 
           <div
@@ -282,7 +279,6 @@ export default function HomePage() {
           We've Taken Travelers
         </h4>
       </section>
-
       <section
         ref={section3Ref}
         className="hero-section text-center text-white position-relative"
