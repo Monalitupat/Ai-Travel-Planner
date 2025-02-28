@@ -133,15 +133,16 @@ export default function BuildTrip() {
   return (
     <>
       {/* Information Section */}
-      <div className="card shadow-sm border-0 mb-4">
+      <div className="  border-0 " style={{ marginTop: "20px" }}>
+        <h2 style={{ marginLeft: "150px" }}>Build Your Trip</h2>
         <img
           src="/c2.jpg"
           className="card-img-top rounded"
           //    alt={trip?.userSelection?.location?.label || "Trip Location"}
-          style={{ height: "500px" }}
+          style={{ height: "450px", width: "1200px", marginLeft: "150px" }}
         />
 
-        <div className="card-body">
+        <div className="card-body" style={{ marginLeft: "150px" }}>
           <h5 className="card-title fw-bold">
             {trip?.tripData?.destination || "Trip Location"}
           </h5>
@@ -163,7 +164,10 @@ export default function BuildTrip() {
               {trip?.tripData?.selectedTravel || "Traveler"}
             </span>
           </div>
-          <div className="d-flex justify-content-end mt-3">
+          <div
+            className="d-flex justify-content-end mt-3"
+            style={{ marginRight: "150px" }}
+          >
             <button className="btn btn-dark">
               <FaPaperPlane className="me-1" /> Share
             </button>
@@ -172,10 +176,10 @@ export default function BuildTrip() {
       </div>
 
       {/* Recommended Hotels */}
-      <section style={{ marginTop: "250px" }}>
+      <section style={{ marginTop: "50px" }}>
         <div className="container my-5">
           <h3 className="mb-4">🏨 Hotel Recommendation</h3>
-          <div className="row d-flex">
+          <div className="d-flex felx-row gap-5" style={{ rowGap: "100px" }}>
             {trip?.tripData?.hotels?.map((hotel, index) => (
               <Link
                 to={
@@ -186,11 +190,12 @@ export default function BuildTrip() {
                 }
                 target="_blank"
               >
-                <div key={index} className="col-12 col-sm-6 col-md-4 col-lg-3">
-                  <div className="card shadow-sm">
+                <div key={index} className="">
+                  <div className="card shadow-sm" style={{ width: "300px" }}>
                     <img
                       src="/c2.jpg"
                       className="card-img-top"
+                      style={{ width: "300px" }}
                       // alt={hotel.name}
                     />
                     <div className="card-body">
