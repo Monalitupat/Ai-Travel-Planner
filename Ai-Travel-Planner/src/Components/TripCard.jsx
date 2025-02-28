@@ -1,38 +1,46 @@
 import React from "react";
 import "../App.css";
 import { FaClock, FaWallet, FaUsers, FaPaperPlane } from "react-icons/fa";
-
-export default function TripCard({
-  image,
-  location,
-  duration,
-  budget,
-  travelers,
-}) {
+import { Link } from "react-router-dom";
+export default function TripCard({ trip }) {
   return (
     <>
-      <div className="card shadow-sm border-0 mb-4">
-        <img src={image} className="card-img-top rounded" alt={location} />
-        <div className="card-body">
-          <h5 className="card-title fw-bold">{location}</h5>
-          <div className="d-flex flex-wrap gap-2 mt-2">
-            <span className="badge bg-light text-dark d-flex align-items-center gap-1">
-              <FaClock className="text-danger" /> {duration}
-            </span>
-            <span className="badge bg-light text-dark d-flex align-items-center gap-1">
-              <FaWallet className="text-warning" /> {budget}
-            </span>
-            <span className="badge bg-light text-dark d-flex align-items-center gap-1">
-              <FaUsers className="text-primary" /> {travelers}
-            </span>
-          </div>
-          <div className="d-flex justify-content-end mt-3">
-            <button className="btn btn-dark">
-              <FaPaperPlane className="me-1" /> Explore
-            </button>
+      <Link to={"/view-trip/" + trip?.id}>
+        <div className="card shadow-sm border-0 mb-4">
+          <div className="d-flex mt-3">
+            <div>
+              <img src="./c2.jpg" className="mytrip-img" alt="image" />
+            </div>
+            <div className="mytrip-detail ms-5">
+              <h5 className="mt-5 fs-4">
+                Destination : {trip?.userSelection?.destination}
+              </h5>
+
+              <div
+                className="
+                 mt-5"
+              >
+                <h3 className=" bg-light text-dark d-flex align-items-center mt-3 fs-5">
+                  <FaClock className="text-danger" /> Days to Travel :
+                  {trip?.userSelection?.travelDays}
+                </h3>
+                <h3 className="bg-light text-dark d-flex align-items-center mt-3  fs-5">
+                  <FaWallet className="text-warning" />
+                  Budget : {trip?.userSelection?.noOfDays} Days trip with
+                  {trip?.userSelection?.selectedbudget}Budget
+                </h3>
+                <h3 className=" bg-light text-dark d-flex align-items-center mt-3 fs-5">
+                  <FaUsers className="text-primary" />
+                  Travel Companion :{trip?.userSelection?.selectedTravel}
+                </h3>
+              </div>
+            </div>
+            <Link to={"/view-trip/" + trip?.id}>
+              <button className="btn btn-dark mytrip-btn">View More</button>
+            </Link>
           </div>
         </div>
-      </div>
+      </Link>
     </>
   );
 }

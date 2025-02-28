@@ -394,3 +394,13 @@ body {
   border-radius: 5px;
   box-shadow: 2px 1px #025d8e;
 }
+.mytrip-img {
+  width: 500px;
+  height: 350px;
+  padding: 20px;
+}
+.mytrip-btn {
+  margin-top: 300px;
+  margin-left: -280px;
+  width: 300px;
+}

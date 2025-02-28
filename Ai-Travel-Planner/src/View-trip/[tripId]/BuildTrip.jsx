@@ -4,16 +4,55 @@ import { FaClock, FaWallet, FaUsers, FaPaperPlane } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "/src/Service/firebaseConfig";
-// import { InfoSection } from "/src/View-trip/components/InfoSection";
+import axios from "axios";
+
+const OPENAI_API_KEY = import.meta.env.REACT_APP_OPENAI_API_KEY;
+
+const generateImage = async (prompt) => {
+  try {
+    const response = await axios.post(
+      "https://api.openai.com/v1/images/generations",
+      {
+        prompt: prompt,
+        n: 1,
+        size: "1024x1024",
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${import.meta.env.REACT_APP_OPENAI_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    return response.data.data[0].url;
+  } catch (error) {
+    console.error("Error generating AI image:", error);
+  }
+};
 
 export default function BuildTrip() {
   const { tripId } = useParams();
-  const [trip, setTrip] = useState({});
+  const [trip, setTrip] = useState(null);
+  const [imageUrls, setImageUrls] = useState({});
+
   useEffect(() => {
-    tripId && GetTripData();
+    if (tripId) {
+      GetTripData(); // ✅ Now this function is defined before use
+    }
   }, [tripId]);
 
-  // use get trip data from firebase
+  useEffect(() => {
+    if (trip?.tripData?.itinerary) {
+      trip.tripData.itinerary.forEach((dayPlan) => {
+        dayPlan.plan.forEach(async (place) => {
+          if (!imageUrls[place.placeName]) {
+            const imageUrl = await fetchAIImage(place.placeName);
+            setImageUrls((prev) => ({ ...prev, [place.placeName]: imageUrl }));
+          }
+        });
+      });
+    }
+  }, [trip]);
 
   const GetTripData = async () => {
     const docRef = doc(db, "AITrips", tripId);
@@ -21,7 +60,6 @@ export default function BuildTrip() {
 
     if (docSnap.exists()) {
       const tripData = docSnap.data();
-      console.log("Fetched Trip Data:", tripData);
 
       // Convert itinerary object to an array
       const itineraryArray = tripData.tripData?.itinerary
@@ -43,119 +81,30 @@ export default function BuildTrip() {
     }
   };
 
-  // const hotels = [
-  //   {
-  //     name: "The Venetian Resort Las Vegas",
-  //     address: "3355 Las Vegas Blvd S, Las Vegas, NV 89109",
-  //     price: "$200-$350 per night",
-  //     stars: "4.5 stars",
-  //     image: "https://via.placeholder.com/250", // Replace with actual image URL
-  //   },
-  //   {
-  //     name: "The Cosmopolitan of Las Vegas",
-  //     address: "3708 Las Vegas Blvd S, Las Vegas, NV 89109",
-  //     price: "$250-$450 per night",
-  //     stars: "4.5 stars",
-  //     image: "https://via.placeholder.com/250",
-  //   },
-  //   {
-  //     name: "The Wynn Las Vegas",
-  //     address: "3131 Las Vegas Blvd S, Las Vegas, NV 89109",
-  //     price: "$300-$500 per night",
-  //     stars: "5 stars",
-  //     image: "https://via.placeholder.com/250",
-  //   },
-  //   {
-  //     name: "The Palazzo Resort Hotel Casino",
-  //     address: "3325 Las Vegas Blvd S, Las Vegas, NV 89109",
-  //     price: "$220-$380 per night",
-  //     stars: "4.5 stars",
-  //     image: "https://via.placeholder.com/250",
-  //   },
-  // ];
-
-  // const places = [
-  //   {
-  //     time: "10:00 AM - 12:00 PM",
-  //     name: "High Roller Observation Wheel",
-  //     description:
-  //       "A giant observation wheel on the Strip that offers stunning 360-degree views of the city. It's a great way to start your trip and get your bearings.",
-  //     duration: "15 minutes",
-  //     price: "$30-$40 per person",
-  //     image: "https://via.placeholder.com/250", // Replace with actual image URL
-  //   },
-  //   {
-  //     time: "12:00 PM - 2:00 PM",
-  //     name: "The LINQ Promenade",
-  //     description:
-  //       "An outdoor shopping and dining promenade on the Strip. It's a great place to grab lunch and explore the shops.",
-  //     duration: "10 minutes",
-  //     price: "Free",
-  //     image: "https://via.placeholder.com/250",
-  //   },
-  //   {
-  //     time: "2:00 PM - 4:00 PM",
-  //     name: "Bellagio Conservatory & Botanical Garden",
-  //     description:
-  //       "A stunning botanical garden located inside the Bellagio Hotel. It's a free attraction and a great place to relax and admire the beautiful flowers and sculptures.",
-  //     duration: "15 minutes",
-  //     price: "Free",
-  //     image: "https://via.placeholder.com/250",
-  //   },
-  //   {
-  //     time: "4:00 PM - 6:00 PM",
-  //     name: "The Venetian and The Palazzo",
-  //     description:
-  //       "Explore the luxurious Venetian and Palazzo resorts. Take a gondola ride through the canals, shop at the upscale boutiques, or try your luck at the casino.",
-  //     duration: "10 minutes",
-  //     price: "Varies depending on activities",
-  //     image: "https://via.placeholder.com/250",
-  //   },
-  //   {
-  //     time: "6:00 PM - 8:00 PM",
-  //     name: "Dinner at a restaurant on the Strip",
-  //     description:
-  //       "There are countless dining options on the Strip, from casual to fine dining. Choose a restaurant that suits your taste and budget.",
-  //     duration: "None",
-  //     price: "Varies",
-  //     image: "https://via.placeholder.com/250",
-  //   },
-  //   {
-  //     time: "8:00 PM - 10:00 PM",
-  //     name: "Fountains of Bellagio",
-  //     description:
-  //       "Enjoy a spectacular water and light show that takes place every 15 minutes in front of the Bellagio Hotel.",
-  //     duration: "None",
-  //     price: "Free",
-  //     image: "https://via.placeholder.com/250",
-  //   },
-  // ];
   return (
     <>
-      {/* Information Section */}
       <div className="card shadow-sm border-0 mb-4">
         <img
           src="/c2.jpg"
           className="card-img-top rounded"
-          //    alt={trip?.userSelection?.location?.label || "Trip Location"}
+          alt={trip?.tripData?.destination || "Trip Location"}
           style={{ height: "500px" }}
         />
-
         <div className="card-body">
           <h5 className="card-title fw-bold">
             {trip?.tripData?.destination || "Trip Location"}
           </h5>
           <div className="d-flex flex-wrap gap-2 mt-2">
             <span className="badge bg-light text-dark d-flex align-items-center gap-1">
-              <FaClock className="text-danger" />{" "}
+              <FaClock className="text-danger" />
               {trip?.tripData?.travelDays || "Trip Days"}
             </span>
             <span className="badge bg-light text-dark d-flex align-items-center gap-1">
-              <FaClock className="text-danger" />{" "}
+              <FaClock className="text-danger" />
               {trip?.tripData?.travelDate || "Trip Date"}
             </span>
             <span className="badge bg-light text-dark d-flex align-items-center gap-1">
-              <FaWallet className="text-warning" />{" "}
+              <FaWallet className="text-warning" />
               {trip?.tripData?.selectedBudget || "Trip budget"}
             </span>
             <span className="badge bg-light text-dark d-flex align-items-center gap-1">
@@ -171,92 +120,85 @@ export default function BuildTrip() {
         </div>
       </div>
 
-      {/* Recommended Hotels */}
-      <section style={{ marginTop: "250px" }}>
-        <div className="container my-5">
-          <h3 className="mb-4">🏨 Hotel Recommendation</h3>
-          <div className="row d-flex">
-            {trip?.tripData?.hotels?.map((hotel, index) => (
-              <Link
-                to={
-                  "https://www.google.com/maps/search/?api=1&query=" +
-                  hotel?.hotelName +
-                  ", " +
-                  hotel?.hotelAddress
-                }
-                target="_blank"
-              >
-                <div key={index} className="col-12 col-sm-6 col-md-4 col-lg-3">
-                  <div className="card shadow-sm">
-                    <img
-                      src="/c2.jpg"
-                      className="card-img-top"
-                      // alt={hotel.name}
-                    />
-                    <div className="card-body">
-                      <h5 className="card-title">{hotel?.hotelName}</h5>
-                      <p className="card-text">
-                        📍 {hotel?.hotelAddress} <br />
-                        💰 <strong>{hotel?.Price}</strong> <br />⭐
-                        <strong>{hotel?.rating}</strong>
-                      </p>
-                    </div>
+      <section className="container my-5">
+        <h3 className="mb-4">🏨 Hotel Recommendations</h3>
+        <div className="row">
+          {trip?.tripData?.hotels?.map((hotel, index) => (
+            <Link
+              to={
+                "https://www.google.com/maps/search/?api=1&query=" +
+                hotel.hotelName +
+                ", " +
+                hotel?.hotelAddress
+              }
+              target="_blank"
+            >
+              <div key={index} className="col-12 col-sm-6 col-md-4 col-lg-3">
+                <div className="card shadow-sm">
+                  <img
+                    src={hotel.image || "/default-image.jpg"}
+                    className="card-img-top"
+                    alt={hotel.hotelName}
+                  />
+                  <div className="card-body">
+                    <h5 className="card-title">{hotel.hotelName}</h5>
+                    <p className="card-text">
+                      📍 {hotel.hotelAddress} <br />
+                      💰 <strong>{hotel.Price}</strong> <br />⭐
+                      <strong>{hotel.rating}</strong>
+                    </p>
+                    <Link
+                      to={`https://www.google.com/maps/search/?api=1&query=${hotel.hotelName}`}
+                      target="_blank"
+                      className="btn btn-primary"
+                    >
+                      View on Map
+                    </Link>
                   </div>
                 </div>
-              </Link>
-            ))}
-          </div>
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
-      {/* Daily Plan */}
-      {/* 📍 Places to Visit Section */}
-      <section>
-        <div className="container my-5">
-          <h3 className="mb-4">📍 Places to Visit</h3>
-          <div className="row">
-            {trip?.tripData?.itinerary?.map((dayPlan, index) => (
-              <div key={index} className="col-12">
-                <h4 className="text-muted fw-bold mb-3">
-                  {dayPlan.day} - {dayPlan.theme}
-                </h4>
-                <div className="row">
-                  {dayPlan.plan?.map((place, i) => (
-                    <Link
-                      to={
-                        "https://www.google.com/maps/search/?api=1&query=" +
-                        place.placeName
-                      }
-                      target="_blank"
-                    >
-                      <div key={i} className="col-12 col-md-6 col-lg-4 mb-3">
-                        <div className="card shadow-sm">
-                          <img
-                            src="/c2.jpg"
-                            className="card-img-top"
-                            alt={place.placeName}
-                          />
-                          <div className="card-body">
-                            <h5 className="card-title">{place.placeName}</h5>
-                            <p className="card-text">{place.placeDetails}</p>
-                            <p>
-                              🕒 {place.timeToTravel} | 💰 {place.ticketPricing}
-                            </p>
-                            <a
-                              href={`https://www.google.com/maps/search/?api=1&query=${place.placeName}`}
-                              target="_blank"
-                              className="btn btn-primary"
-                            >
-                              View on Map
-                            </a>
-                          </div>
-                        </div>
+
+      <section className="container my-5">
+        <h3 className="mb-4">📍 Places to Visit</h3>
+        <div className="row">
+          {trip?.tripData?.itinerary?.map((dayPlan, index) => (
+            <div key={index} className="col-12">
+              <h4 className="text-muted fw-bold mb-3">
+                {dayPlan.day} - {dayPlan.theme}
+              </h4>
+              <div className="row">
+                {dayPlan.plan?.map((place, i) => (
+                  <div key={i} className="col-12 col-md-6 col-lg-4 mb-3">
+                    <div className="card shadow-sm">
+                      <img
+                        src={imageUrls[place.placeName] || "/default-image.jpg"}
+                        className="card-img-top"
+                        alt={place.placeName}
+                      />
+                      <div className="card-body">
+                        <h5 className="card-title">{place.placeName}</h5>
+                        <p className="card-text">{place.placeDetails}</p>
+                        <p>
+                          🕒 {place.timeToTravel} | 💰 {place.ticketPricing}
+                        </p>
+                        <Link
+                          to={`https://www.google.com/maps/search/?api=1&query=${place.placeName}`}
+                          target="_blank"
+                          className="btn btn-primary"
+                        >
+                          View on Map
+                        </Link>
                       </div>
-                    </Link>
-                  ))}
-                </div>
+                    </div>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </section>
     </>
