@@ -1,12 +1,10 @@
 import { useInView } from "react-intersection-observer";
 
 import "../App.css";
-<<<<<<< HEAD
+
 import "animate.css";
 import { useState, useEffect, useRef } from "react";
-=======
-import "animate.css/animate.min.css";
->>>>>>> e561768c8323afd3af6f32b5e984ee1555317a95
+
 import img1 from "../assets/images/s1.jpg";
 import img2 from "../assets/images/s2.jpg";
 import img3 from "../assets/images/s3.jpg";
@@ -38,7 +36,6 @@ export default function HomePage() {
     { name: "ANNAPURNA, NEPAL", img: nepal, rating: 4.9, reviews: "1.5K" },
     { name: "DUBAI, UAE", img: dubai, rating: 4.6, reviews: "890" },
   ];
-<<<<<<< HEAD
 
   const [animate, setAnimate] = useState(false);
 
@@ -63,13 +60,6 @@ export default function HomePage() {
     triggerOnce: true,
     threshold: 0.2,
   });
-=======
-  const handleLogout = () => {
-    localStorage.removeItem("isAuthenticated");
-    localStorage.removeItem("currentUser");
-    navigate("/login");
-  };
->>>>>>> e561768c8323afd3af6f32b5e984ee1555317a95
 
   return (
     <>

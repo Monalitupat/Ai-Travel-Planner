@@ -224,7 +224,8 @@ body {
 /*.carousel-img style*/
 .carousel-img {
   opacity: 0.9;
-  height: 700px;
+  height: 75vh; /* Adjust height for balance */
+  object-fit: cover;
 }
 /*Carosul item style*/
 .carousel-item {
@@ -374,4 +375,19 @@ body {
   color: white;
   border-radius: 5px;
   box-shadow: 2px 1px #025d8e;
+}
+#personalInfo {
+  width: 1300px;
+  height: 350px;
+  background: white;
+  border-radius: 5px;
+}
+#addInfo {
+  height: 300px;
+}
+#profileCard {
+  width: 1300px;
+  height: 100px;
+  background: white;
+  border-radius: 5px;
 }
