@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import "../App.css";
 import Navbar from "./Navbar";
+
 import TripCard from "./TripCard";
 import { FaClock, FaWallet, FaUsers, FaPaperPlane } from "react-icons/fa";
 import { useNavigation } from "react-router-dom";

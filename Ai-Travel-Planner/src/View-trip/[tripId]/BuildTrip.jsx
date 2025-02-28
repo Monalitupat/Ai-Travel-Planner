@@ -6,6 +6,12 @@ import { doc, getDoc } from "firebase/firestore";
 import { db } from "/src/Service/firebaseConfig";
 import axios from "axios";
 
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import { Navigation } from "swiper/modules";
+import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate
+
 const OPENAI_API_KEY = import.meta.env.REACT_APP_OPENAI_API_KEY;
 
 const generateImage = async (prompt) => {
@@ -34,6 +40,7 @@ export default function BuildTrip() {
   const { tripId } = useParams();
   const [trip, setTrip] = useState(null);
   const [imageUrls, setImageUrls] = useState({});
+  const navigate = useNavigate(); // ✅ Initialize navigation function
 
   useEffect(() => {
     if (tripId) {
@@ -61,12 +68,19 @@ export default function BuildTrip() {
     if (docSnap.exists()) {
       const tripData = docSnap.data();
 
-      // Convert itinerary object to an array
+      // Convert itinerary object to array & sort by day number
       const itineraryArray = tripData.tripData?.itinerary
-        ? Object.keys(tripData.tripData.itinerary).map((day) => ({
-            day,
-            ...tripData.tripData.itinerary[day],
-          }))
+        ? Object.entries(tripData.tripData.itinerary)
+            .map(([key, value]) => ({
+              day: key, // e.g., "day1", "day2", etc.
+              ...value,
+            }))
+            .sort((a, b) => {
+              // Extract numeric part of "day1", "day2", etc.
+              const dayNumberA = parseInt(a.day.replace(/\D/g, ""), 10);
+              const dayNumberB = parseInt(b.day.replace(/\D/g, ""), 10);
+              return dayNumberA - dayNumberB;
+            })
         : [];
 
       setTrip({
@@ -83,91 +97,109 @@ export default function BuildTrip() {
 
   return (
     <>
-      <div className="card shadow-sm border-0 mb-4">
-        <img
-          src="/c2.jpg"
-          className="card-img-top rounded"
-          alt={trip?.tripData?.destination || "Trip Location"}
-          style={{ height: "500px" }}
-        />
-        <div className="card-body">
-          <h5 className="card-title fw-bold">
-            {trip?.tripData?.destination || "Trip Location"}
-          </h5>
-          <div className="d-flex flex-wrap gap-2 mt-2">
-            <span className="badge bg-light text-dark d-flex align-items-center gap-1">
-              <FaClock className="text-danger" />
-              {trip?.tripData?.travelDays || "Trip Days"}
-            </span>
-            <span className="badge bg-light text-dark d-flex align-items-center gap-1">
-              <FaClock className="text-danger" />
-              {trip?.tripData?.travelDate || "Trip Date"}
-            </span>
-            <span className="badge bg-light text-dark d-flex align-items-center gap-1">
-              <FaWallet className="text-warning" />
-              {trip?.tripData?.selectedBudget || "Trip budget"}
-            </span>
-            <span className="badge bg-light text-dark d-flex align-items-center gap-1">
-              <FaUsers className="text-primary" />
-              {trip?.tripData?.selectedTravel || "Traveler"}
-            </span>
-          </div>
-          <div className="d-flex justify-content-end mt-3">
-            <button className="btn btn-dark">
-              <FaPaperPlane className="me-1" /> Share
-            </button>
+      <div className="card-body mt-5">
+        {/* Information Section */}
+        <div className="  border-0 fs-3" style={{ marginTop: "30px" }}>
+          <h2
+            style={{
+              marginLeft: "130px",
+              marginTop: "50px",
+              fontWeight: "bold",
+            }}
+          >
+            Build Your Trip
+          </h2>
+          <img
+            src="/c2.jpg"
+            className="card-img-top rounded mt-4"
+            //    alt={trip?.userSelection?.location?.label || "Trip Location"}
+            style={{ height: "450px", width: "1250px", marginLeft: "130px" }}
+          />
+
+          <div className="card-body" style={{ marginLeft: "130px" }}>
+            <h2 className="card-title fw-bold mt-4">
+              {trip?.tripData?.destination || "Trip Location"}
+            </h2>
+            <div className="d-flex">
+              <div className="d-flex flex-wrap gap-2 mt-2">
+                <span className="badge bg-light text-dark d-flex align-items-center gap-1">
+                  <FaClock className="text-danger" />
+                  {trip?.tripData?.travelDays || "Trip Days"}
+                </span>
+                <span className="badge bg-light text-dark d-flex align-items-center gap-1">
+                  <FaClock className="text-danger" />
+                  {trip?.tripData?.travelDate || "Trip Date"}
+                </span>
+                <span className="badge bg-light text-dark d-flex align-items-center gap-1">
+                  <FaWallet className="text-warning" />
+                  {trip?.tripData?.selectedBudget || "Trip budget"}
+                </span>
+                <span className="badge bg-light text-dark d-flex align-items-center gap-1">
+                  <FaUsers className="text-primary" />
+                  {trip?.tripData?.selectedTravel || "Traveler"}
+                </span>
+              </div>
+              <div className="mt-1 ms-2">
+                <button className="btn btn-light py-1 px-2 fs-5">
+                  <FaPaperPlane className="me-1 text-dark" />
+                  <span className="fw-bold">Share</span>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
       <section className="container my-5">
-        <h3 className="mb-4">🏨 Hotel Recommendations</h3>
-        <div className="row">
+        <h3 className="hotel-heading">🏨 Hotel Recommendations</h3>
+
+        <Swiper
+          spaceBetween={20}
+          slidesPerView={3} // Show 3 cards at a time (adjust as needed)
+          navigation
+          modules={[Navigation]}
+          breakpoints={{
+            320: { slidesPerView: 1 },
+            768: { slidesPerView: 2 },
+            1024: { slidesPerView: 3 },
+          }}
+          className="mySwiper"
+        >
           {trip?.tripData?.hotels?.map((hotel, index) => (
-            <Link
-              to={
-                "https://www.google.com/maps/search/?api=1&query=" +
-                hotel.hotelName +
-                ", " +
-                hotel?.hotelAddress
-              }
-              target="_blank"
-            >
-              <div key={index} className="col-12 col-sm-6 col-md-4 col-lg-3">
-                <div className="card shadow-sm">
-                  <img
-                    src={hotel.image || "/default-image.jpg"}
-                    className="card-img-top"
-                    alt={hotel.hotelName}
-                  />
-                  <div className="card-body">
-                    <h5 className="card-title">{hotel.hotelName}</h5>
-                    <p className="card-text">
-                      📍 {hotel.hotelAddress} <br />
-                      💰 <strong>{hotel.Price}</strong> <br />⭐
-                      <strong>{hotel.rating}</strong>
-                    </p>
-                    <Link
-                      to={`https://www.google.com/maps/search/?api=1&query=${hotel.hotelName}`}
-                      target="_blank"
-                      className="btn btn-primary"
-                    >
-                      View on Map
-                    </Link>
-                  </div>
+            <SwiperSlide key={index}>
+              <div className="card shadow-sm p-3">
+                <img
+                  src={hotel.image || "/default-image.jpg"}
+                  className="card-img-top"
+                  alt={hotel.hotelName}
+                />
+                <div className="card-body">
+                  <h5 className="card-title">{hotel.hotelName}</h5>
+                  <p className="card-text">
+                    📍 {hotel.hotelAddress} <br />
+                    💰 <strong>{hotel.Price}</strong> <br />⭐{" "}
+                    <strong>{hotel.rating}</strong>
+                  </p>
+                  <Link
+                    to={`https://www.google.com/maps/search/?api=1&query=${hotel.hotelName}`}
+                    target="_blank"
+                    className="btn btn-primary"
+                  >
+                    View on Map
+                  </Link>
                 </div>
               </div>
-            </Link>
+            </SwiperSlide>
           ))}
-        </div>
+        </Swiper>
       </section>
 
       <section className="container my-5">
-        <h3 className="mb-4">📍 Places to Visit</h3>
+        <h3 className="hotel-heading">📍 Places to Visit</h3>
         <div className="row">
           {trip?.tripData?.itinerary?.map((dayPlan, index) => (
             <div key={index} className="col-12">
-              <h4 className="text-muted fw-bold mb-3">
+              <h4 className="text-muted fw-bold mb-3 ms-4">
                 {dayPlan.day} - {dayPlan.theme}
               </h4>
               <div className="row">
@@ -199,6 +231,15 @@ export default function BuildTrip() {
               </div>
             </div>
           ))}
+          {/* ✅ New "Go to My Trip" Button */}
+          <div className="mt-4 text-center">
+            <button
+              className="btn btn-success px-4 py-2 fw-bold"
+              onClick={() => navigate("/home")} // ✅ Navigate to My Trip page
+            >
+              Go to My Trip
+            </button>
+          </div>
         </div>
       </section>
     </>
