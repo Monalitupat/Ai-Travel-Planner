@@ -25,25 +25,18 @@ export default function MyTrip() {
 
     const q = query(
       collection(db, "AITrips"),
-      where("userEmail", "==", user?.email)
+      where("userEmail", "==", user.email)
     );
     const querySnapshot = await getDocs(q);
+
+    let trips = [];
     querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      console.log(doc.id, " => ", doc.data());
-      setUserTrips((prevVal) => [...prevVal, doc.data()]);
+      trips.push({ id: doc.id, ...doc.data() }); // Include Firestore ID
     });
+
+    setUserTrips(trips); // Overwrite previous state, instead of appending
   };
 
-  const trips = [
-    {
-      image: "https://your-image-url.com/lasvegas.jpg", // Replace with actual image URL
-      location: "Las Vegas, NV, USA",
-      duration: "2 Days",
-      budget: "Moderate Budget",
-      travelers: "5 to 10 People",
-    },
-  ];
   return (
     <>
       <Navbar />

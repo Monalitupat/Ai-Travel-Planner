@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "../../App.css";
 import { FaClock, FaWallet, FaUsers, FaPaperPlane } from "react-icons/fa";
 import { Link, useParams } from "react-router-dom";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "/src/Service/firebaseConfig";
 import axios from "axios";
 
@@ -42,6 +42,35 @@ export default function BuildTrip() {
   const [imageUrls, setImageUrls] = useState({});
   const navigate = useNavigate(); // ✅ Initialize navigation function
 
+  const [showPopup, setShowPopup] = useState(false);
+
+  const handleSaveTrip = async () => {
+    const user = JSON.parse(localStorage.getItem("user")); // Get logged-in user
+    if (!user) {
+      console.error("User not logged in");
+      return;
+    }
+
+    try {
+      const tripData = {
+        userEmail: user.email,
+        tripData: { ...trip.tripData }, // Save full trip details
+        userSelection: { ...trip.userSelection }, // Save user selections
+        createdAt: new Date(), // Timestamp
+      };
+
+      const tripRef = doc(db, "AITrips", tripId || Date.now().toString()); // Unique tripId if not available
+      await setDoc(tripRef, tripData); // Use setDoc instead of addDoc
+
+      setShowPopup(true);
+      setTimeout(() => {
+        setShowPopup(false);
+        navigate("/home"); // Redirect to My Trip page
+      }, 2000);
+    } catch (error) {
+      console.error("Error saving trip:", error);
+    }
+  };
   useEffect(() => {
     if (tripId) {
       GetTripData(); // ✅ Now this function is defined before use
@@ -123,11 +152,11 @@ export default function BuildTrip() {
             <div className="d-flex">
               <div className="d-flex flex-wrap gap-2 mt-2">
                 <span className="badge bg-light text-dark d-flex align-items-center gap-1">
-                  <FaClock className="text-danger" />
+                  📆
                   {trip?.tripData?.travelDays || "Trip Days"}
                 </span>
                 <span className="badge bg-light text-dark d-flex align-items-center gap-1">
-                  <FaClock className="text-danger" />
+                  📅
                   {trip?.tripData?.travelDate || "Trip Date"}
                 </span>
                 <span className="badge bg-light text-dark d-flex align-items-center gap-1">
@@ -177,7 +206,7 @@ export default function BuildTrip() {
                   <h5 className="card-title">{hotel.hotelName}</h5>
                   <p className="card-text">
                     📍 {hotel.hotelAddress} <br />
-                    💰 <strong>{hotel.Price}</strong> <br />⭐{" "}
+                    💰 <strong>{hotel.Price}</strong> <br />⭐
                     <strong>{hotel.rating}</strong>
                   </p>
                   <Link
@@ -231,15 +260,48 @@ export default function BuildTrip() {
               </div>
             </div>
           ))}
-          {/* ✅ New "Go to My Trip" Button */}
+          {/* ✅ Save Trip Button */}
           <div className="mt-4 text-center">
             <button
-              className="btn btn-success px-4 py-2 fw-bold"
-              onClick={() => navigate("/home")} // ✅ Navigate to My Trip page
+              className="btn btn-primary px-4 py-2 fw-bold"
+              onClick={() => {
+                console.log("Button clicked!"); // Debugging
+                handleSaveTrip();
+              }}
             >
-              Go to My Trip
+              Save Trip
             </button>
           </div>
+          {/* ✅ Popup Notification */}
+          {showPopup && (
+            <div className="popup-container">
+              <div className="popup">
+                <p>✅ Trip Saved Successfully!</p>
+              </div>
+            </div>
+          )}
+          {/* ✅ Popup Styles */}
+          <style>{`
+        .popup-container {
+          position: fixed;
+          top: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          background-color: #28a745;
+          color: white;
+          padding: 12px 20px;
+          border-radius: 8px;
+          box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+          font-weight: bold;
+          animation: fadeInOut 2s ease-in-out;
+        }
+        @keyframes fadeInOut {
+          0% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+          10% { opacity: 1; transform: translateX(-50%) translateY(0px); }
+          90% { opacity: 1; transform: translateX(-50%) translateY(0px); }
+          100% { opacity: 0; transform: translateX(-50%) translateY(-10px); }
+        }
+      `}</style>
         </div>
       </section>
     </>

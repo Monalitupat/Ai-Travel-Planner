@@ -21,9 +21,12 @@ export default function SignupPage() {
     }
 
     // Save user data
-    const newUser = { name, email, password };
+    const newUser = { name, email, password, profile: {} };
     users.push(newUser);
     localStorage.setItem("users", JSON.stringify(users));
+
+    // Set the current user as logged in
+    localStorage.setItem("currentUser", JSON.stringify(newUser));
 
     alert("Signup successful! Please login.");
     navigate("/login"); // Redirect to login page
