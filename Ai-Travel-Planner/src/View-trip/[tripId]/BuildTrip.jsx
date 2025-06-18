@@ -5,7 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "/src/Service/firebaseConfig";
 import axios from "axios";
-
+import { fetchUnsplashImage } from "../../unsplash";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -14,32 +14,11 @@ import { useNavigate } from "react-router-dom"; // ✅ Import useNavigate
 
 const OPENAI_API_KEY = import.meta.env.REACT_APP_OPENAI_API_KEY;
 
-const generateImage = async (prompt) => {
-  try {
-    const response = await axios.post(
-      "https://api.openai.com/v1/images/generations",
-      {
-        prompt: prompt,
-        n: 1,
-        size: "1024x1024",
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${import.meta.env.REACT_APP_OPENAI_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    return response.data.data[0].url;
-  } catch (error) {
-    console.error("Error generating AI image:", error);
-  }
-};
-
 export default function BuildTrip() {
   const { tripId } = useParams();
   const [trip, setTrip] = useState(null);
   const [imageUrls, setImageUrls] = useState({});
+
   const navigate = useNavigate(); // ✅ Initialize navigation function
 
   const [showPopup, setShowPopup] = useState(false);
@@ -78,6 +57,36 @@ export default function BuildTrip() {
   }, [tripId]);
 
   useEffect(() => {
+    const fetchImages = async () => {
+      if (trip?.tripData?.destination) {
+        if (!imageUrls[trip.tripData.destination]) {
+          const imageUrl = await fetchUnsplashImage(trip.tripData.destination);
+          setImageUrls((prev) => ({
+            ...prev,
+            [trip.tripData.destination]: imageUrl,
+          }));
+        }
+      }
+
+      if (trip?.tripData?.itinerary) {
+        for (const dayPlan of trip.tripData.itinerary) {
+          for (const place of dayPlan.plan) {
+            if (!imageUrls[place.placeName]) {
+              const imageUrl = await fetchUnsplashImage(place.placeName);
+              setImageUrls((prev) => ({
+                ...prev,
+                [place.placeName]: imageUrl,
+              }));
+            }
+          }
+        }
+      }
+    };
+
+    fetchImages();
+  }, [trip]);
+
+  useEffect(() => {
     if (trip?.tripData?.itinerary) {
       trip.tripData.itinerary.forEach((dayPlan) => {
         dayPlan.plan.forEach(async (place) => {
@@ -88,6 +97,44 @@ export default function BuildTrip() {
         });
       });
     }
+  }, [trip]);
+
+  useEffect(() => {
+    const fetchImages = async () => {
+      if (trip?.tripData?.itinerary) {
+        for (const dayPlan of trip.tripData.itinerary) {
+          for (const place of dayPlan.plan) {
+            if (!imageUrls[place.placeName]) {
+              const imageUrl = await fetchUnsplashImage(place.placeName); // ✅ Correct function
+              setImageUrls((prev) => ({
+                ...prev,
+                [place.placeName]: imageUrl,
+              }));
+            }
+          }
+        }
+      }
+    };
+
+    fetchImages(); // ✅ Call async wrapper
+  }, [trip]);
+
+  useEffect(() => {
+    const fetchHotelImages = async () => {
+      if (trip?.tripData?.hotels) {
+        for (const hotel of trip.tripData.hotels) {
+          if (!imageUrls[hotel.hotelName]) {
+            const imageUrl = await fetchUnsplashImage(hotel.hotelName);
+            setImageUrls((prev) => ({
+              ...prev,
+              [hotel.hotelName]: imageUrl,
+            }));
+          }
+        }
+      }
+    };
+
+    fetchHotelImages(); // ✅ Fetch hotel images when trip data is available
   }, [trip]);
 
   const GetTripData = async () => {
@@ -139,9 +186,9 @@ export default function BuildTrip() {
             Build Your Trip
           </h2>
           <img
-            src="/c2.jpg"
+            src={imageUrls[trip?.tripData?.destination] || "/default-image.jpg"}
             className="card-img-top rounded mt-4"
-            //    alt={trip?.userSelection?.location?.label || "Trip Location"}
+            alt={trip?.tripData?.destination || "Trip Destination"}
             style={{ height: "450px", width: "1250px", marginLeft: "130px" }}
           />
 
@@ -196,9 +243,9 @@ export default function BuildTrip() {
         >
           {trip?.tripData?.hotels?.map((hotel, index) => (
             <SwiperSlide key={index}>
-              <div className="card shadow-sm p-3">
+              <div className="card shadow-sm p-3" style={{ height: "430px" }}>
                 <img
-                  src={hotel.image || "/default-image.jpg"}
+                  src={imageUrls[hotel.hotelName] || "/default-image.jpg"}
                   className="card-img-top"
                   alt={hotel.hotelName}
                 />
@@ -237,9 +284,10 @@ export default function BuildTrip() {
                     <div className="card shadow-sm">
                       <img
                         src={imageUrls[place.placeName] || "/default-image.jpg"}
-                        className="card-img-top"
                         alt={place.placeName}
+                        className="card-img-top"
                       />
+
                       <div className="card-body">
                         <h5 className="card-title">{place.placeName}</h5>
                         <p className="card-text">{place.placeDetails}</p>

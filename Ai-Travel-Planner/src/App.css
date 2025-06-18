@@ -461,7 +461,19 @@ body {
   border-radius: 5px;
   box-shadow: 2px 1px #025d8e;
 }
-
+.mytripCard {
+  height: 600px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.mytrip-detail {
+  margin-left: 45px;
+}
+.place {
+  display: flex;
+  align-items: center;
+}
 .mytrip-img {
   width: 500px;
   height: 350px;

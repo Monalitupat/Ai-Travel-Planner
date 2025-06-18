@@ -73,6 +73,7 @@ export default function HomePage() {
         <div className="carousel-inner">
           <div className="carousel-item active" data-bs-interval="2000">
             <img src={img1} className="carousel-img" alt="Slide 1" />
+
             <div
               className="carousel-caption d-none d-md-block"
               style={{ marginBottom: "250px" }}
