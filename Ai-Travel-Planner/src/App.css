@@ -18,28 +18,18 @@ body {
 }
 
 /* Logo styling */
+.Logo {
+  width: 45px;
+  height: 45px;
+  object-fit: cover;
+  object-position: center;
+}
 .logo {
   font-size: 20px;
   font-weight: bold;
   color: black;
 }
 
-/* Navigation links */
-.nav-links {
-  display: flex;
-  gap: 15px; /* Space between links */
-  font-weight: bold;
-}
-
-.nav-links a {
-  text-decoration: none;
-  color: black;
-  font-weight: 600;
-}
-
-.nav-links a:hover {
-  text-decoration: underline;
-}
 /* Landing Page Description*/
 
 .content1 {
@@ -71,19 +61,38 @@ body {
   height: 50px;
   background-color: rgb(199, 199, 199);
 }
+
 .nav-Link {
   color: black;
   text-decoration: none;
+  font-weight: bold;
+  font-size: 17px;
+  padding-bottom: 5px;
+  padding-top: 5px;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s ease;
 }
+
+.nav-Link:hover {
+  border-bottom: 2px solid #000;
+  color: #000;
+}
+
+/* Prevent layout shift on hover */
+.Picon {
+  width: 20px;
+  height: 20px;
+}
+/* 
 .nav-Link:hover {
   text-decoration: underline;
-  font-size: large;
+  font-weight: bolder;
 }
 .picon {
   width: 20px;
   height: 20px;
   margin-bottom: 5px;
-}
+} */
 
 /* Login Page Page Styling */
 .loginHeading {
@@ -125,6 +134,12 @@ body {
 }
 
 /* Home Page Styling */
+/* .circle {
+  width: 50px;
+  height: 50%;
+  border-radius: 10%;
+  background-color: #0056b3;
+} */
 .carousel-img {
   width: 1600px;
   height: 500px;
@@ -243,7 +258,7 @@ body {
 /*.carousel-img style*/
 .carousel-img {
   opacity: 0.9;
-  height: 75vh; /* Adjust height for balance */
+  height: 85vh; /* Adjust height for balance */
   object-fit: cover;
 }
 /*Carosul item style*/
@@ -274,6 +289,10 @@ body {
 }
 
 /*Home page Card */
+.reviews {
+  margin-top: -10%;
+  margin-bottom: 5%;
+}
 .location-card {
   border-radius: 15px;
   overflow: hidden;

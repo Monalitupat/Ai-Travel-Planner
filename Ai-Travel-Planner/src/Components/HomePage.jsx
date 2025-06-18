@@ -23,6 +23,9 @@ import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa"; // Import star icon
 import Navbar from "./Navbar";
 import { useNavigate } from "react-router-dom";
+import $ from "jquery";
+window.$ = $;
+window.jQuery = $;
 
 export default function HomePage() {
   const locations = [
@@ -138,39 +141,36 @@ export default function HomePage() {
             </div>
           </div>
         </div>
+
         <button
-          className="carousel-control-prev"
+          class="carousel-control-prev"
           type="button"
-          data-bs-target="#carouselExampleCaptions"
+          data-bs-target="#carouselExample"
           data-bs-slide="prev"
         >
-          <span
-            className="carousel-control-prev-icon"
-            aria-hidden="true"
-          ></span>
-          <span className="visually-hidden">Previous</span>
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
         </button>
         <button
-          className="carousel-control-next"
+          class="carousel-control-next"
           type="button"
-          data-bs-target="#carouselExampleCaptions"
+          data-bs-target="#carouselExample"
           data-bs-slide="next"
         >
-          <span
-            className="carousel-control-next-icon"
-            aria-hidden="true"
-          ></span>
-          {/* <span className="visually-hidden">Next</span> */}
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
         </button>
       </div>
       <div ref={section1Ref} className="container">
-        <h2
-          className={`text-white text-center mb-4 animate__animated ${
-            section1InView ? "animate__backInLeft" : "opacity-0"
-          }`}
-        >
-          Explore Top Locations
-        </h2>
+        <div className="reviews">
+          <h2
+            className={`text-white text-center mb-4 animate__animated ${
+              section1InView ? "animate__backInLeft" : "opacity-0"
+            }`}
+          >
+            Explore Top Locations
+          </h2>
+        </div>
         <div className="row">
           {locations.map((location, index) => (
             <div
